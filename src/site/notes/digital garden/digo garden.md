@@ -3,14 +3,5 @@
 ---
 
 
-	fgdfgsdfgsdfgsdfgdg
-
-	fdgsdxfgsdfdfg
-	
-g
-
-		dfg
-sd
-fg
-s
-dfgdfgf
+## Texto Generado
+<span><span>Selecciona una opción en el frontmatter</span></span>
