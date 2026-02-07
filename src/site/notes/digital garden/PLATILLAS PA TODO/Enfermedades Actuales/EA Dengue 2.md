@@ -3,18 +3,30 @@
 ---
 
 <h3>1 parte</h3>
-<label><input type="checkbox" onclick="updateNarrativa()"> ACUDE AL SERVICIO DE URGENCIAS SIN ACOMPAÑANTE, REFIERE CUADRO CLINICO DE X DÍAS DE EVOLUCIÓN CONSISTENTE EN</label><br>
-<label><input type="checkbox" onclick="updateNarrativa()"> ACUDE AL SERVICIO DE URGENCIAS ACOMPAÑADO DE XXXX, REFIERE CUADRO CLINICO DE X DÍAS DE EVOLUCIÓN CONSISTENTE EN</label><br>
-<label><input type="checkbox" onclick="updateNarrativa()">ES TRAIDO AL SERVICIO DE URGENCIAS POR MADRE QUIEN REFIERE QUE HA PRESENTADO CUADRO CLINICO DE X DÍAS DE EVOLUCIÓN CONSISTENTE EN</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> ACUDE AL SERVICIO DE URGENCIAS SIN ACOMPAÑANTE, REFIERE </label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> ACUDE AL SERVICIO DE URGENCIAS ACOMPAÑADO DE XXXX, REFIERE </label><br>
+<label><input type="checkbox" onclick="updateNarrativa()">ES TRAIDO AL SERVICIO DE URGENCIAS POR MADRE QUIEN REFIERE QUE HA PRESENTADO CUADRO </label><br>
 
-<h3>2 parte</h3>
+<h3>Al menos 2 de estos</h3>
 <label><input type="checkbox" onclick="updateNarrativa()"> FIEBRE SUBJETIVA</label><br>
-<label><input type="checkbox" onclick="updateNarrativa()"> FIEBRE CUANTIFICADA EN XXXX</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> FIEBRE CUANTIFICADA EN</label><br>
 <label><input type="checkbox" onclick="updateNarrativa()"> PICOS FEBRILES</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> CEFALEA</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> NÁUSEAS</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> VÓMITO</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> MIALGIAS</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> ARTRALGIAS</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> EXANTEMA (registrar también en examen físico)</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> PETEQUIAS EN (registrar también en examen físico)</label><br>
 
-<h3>3 parte</h3>
-<label><input type="checkbox" onclick="updateNarrativa()"> Contacto con casos confirmados</label><br>
-<label><input type="checkbox" onclick="updateNarrativa()"> Zona endémica</label><br>
+<h3>Signos de alarma</h3>
+<label><input type="checkbox" onclick="updateNarrativa()"> DOLOR ABDOMINAL INTENSO Y CONTINUO</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> VÓMITOS PERSISTENTES</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> DIARREA</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> LETARGO</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> IRRITABILIDAD (PRINCIPALMENTE EN NIÑOS)</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> HIPOTENSIÓN POSTURAL</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> LIPOTIMIA</label><br>
 
 <h3>Narrativa generada</h3>
 <p id="narrativa"></p>
@@ -30,16 +42,23 @@ function updateNarrativa() {
   if (checks[1].checked) narrativa += "ACUDE AL SERVICIO DE URGENCIAS ACOMPAÑADO DE XXXX, REFIERE CUADRO CLINICO DE X DÍAS DE EVOLUCIÓN CONSISTENTE EN";
   if (checks[2].checked) narrativa += "ES TRAIDO AL SERVICIO DE URGENCIAS POR MADRE QUIEN REFIERE QUE HA PRESENTADO CUADRO CLINICO DE X DÍAS DE EVOLUCIÓN CONSISTENTE EN ";
 
-  // Sección laboratorio
-  narrativa += "\nResultados de laboratorio: ";
-  if (checks[3].checked) narrativa += "FIEBRE SUBJETIVA";
-  if (checks[4].checked) narrativa += "FIEBRE CUATIFICADA EN";
-  if (checks[5].checked) narrativa += "PICOS FEBRILES ";
+  narrativa += "CUADRO CLINICO DE X DÍAS DE EVOLUCIÓN CONSISTENTE EN ";
+  if (checks[3].checked) narrativa += "Cefalea. ";
+  if (checks[4].checked) narrativa += "Náuseas. ";
+  if (checks[5].checked) narrativa += "Vómito. ";
+  if (checks[6].checked) narrativa += "Mialgias. ";
+  if (checks[7].checked) narrativa += "Artralgias. ";
+  if (checks[8].checked) narrativa += "Exantema (registrar también en examen físico). ";
+  if (checks[9].checked) narrativa += "Petequias en (registrar también en examen físico). ";
 
-  // Sección epidemiología
-  narrativa += "\nAntecedentes epidemiológicos: ";
-  if (checks[6].checked) narrativa += "Contacto con casos confirmados. ";
-  if (checks[7].checked) narrativa += "Reside en zona endémica. ";
+  narrativa += "";
+  if (checks[0].checked) narrativa += "Dolor abdominal intenso y continuo. ";
+  if (checks[1].checked) narrativa += "Vómitos persistentes. ";
+  if (checks[2].checked) narrativa += "Diarrea. ";
+  if (checks[3].checked) narrativa += "Letargo. ";
+  if (checks[4].checked) narrativa += "Irritabilidad (principalmente en niños). ";
+  if (checks[5].checked) narrativa += "Hipotensión postural. ";
+  if (checks[6].checked) narrativa += "Lipotimia. ";
 
   document.getElementById("narrativa").innerText = narrativa;
 }
