@@ -3,27 +3,23 @@
 ---
 
 
-## Síntomas
-- [ ] Fiebre > El paciente presenta fiebre.
-- [ ] Dolor abdominal > Se reporta dolor abdominal.
-- [ ] Erupción cutánea > Se observa erupción cutánea.
+<h3>Síntomas</h3>
+<label><input type="checkbox" onclick="updateNarrativa()"> Fiebre</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> Dolor abdominal</label><br>
+<label><input type="checkbox" onclick="updateNarrativa()"> Erupción cutánea</label><br>
 
----
+<h3>Narrativa generada</h3>
+<p id="narrativa">Resumen clínico: ... Fin del reporte.</p>
 
-## Narrativa generada
-```dataviewjs
-let inicio = "Resumen clínico: ";
-let cierre = " Fin del reporte.";
-
-let texto = "";
-for (let line of dv.current().file.tasks) {
-    if (line.completed) {
-        let parts = line.text.split(">");
-        if (parts.length > 1) {
-            texto += parts[1].trim() + " ";
-        }
-    }
+<script>
+function updateNarrativa() {
+  let narrativa = "Resumen clínico: ";
+  const checks = document.querySelectorAll("input[type=checkbox]");
+  if (checks[0].checked) narrativa += "El paciente presenta fiebre. ";
+  if (checks[1].checked) narrativa += "Se reporta dolor abdominal. ";
+  if (checks[2].checked) narrativa += "Se observa erupción cutánea. ";
+  narrativa += "Fin del reporte.";
+  document.getElementById("narrativa").innerText = narrativa;
 }
-
-dv.paragraph(inicio + texto.trim() + cierre);
+</script>
 
