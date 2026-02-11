@@ -19,9 +19,9 @@
 <body>
 
   <h1>1</h1>
-  <label class="item"><input type="checkbox" onchange="updateNarrativa()"> PACIENTE FEMENINA DE # AÑOS ES TRAIDO AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN </label>
-  <label class="item"><input type="checkbox" onchange="updateNarrativa()"> FEMENINA LACTANTE  MAYOR DE # MESES QUE ES TRAIDO AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN </label>
-  <label class="item"><input type="checkbox" onchange="updateNarrativa()"> FEMENINA LACTANTE MENOR DE # MESES QUE ES TRAIDO AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN</label>
+  <label class="item"><input type="checkbox" onchange="updateNarrativa()"> PACIENTE FEMENINA DE # AÑOS ES TRAIDA AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN </label>
+  <label class="item"><input type="checkbox" onchange="updateNarrativa()"> FEMENINA LACTANTE  MAYOR DE # MESES QUE ES TRAIDA AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN </label>
+  <label class="item"><input type="checkbox" onchange="updateNarrativa()"> FEMENINA LACTANTE MENOR DE # MESES QUE ES TRAIDA AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN</label>
   <label class="item"><input type="checkbox" onchange="updateNarrativa()"> PACIENTE MASCULINO DE # AÑOS ES TRAIDO AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN </label>
   <label class="item"><input type="checkbox" onchange="updateNarrativa()"> MASCULINO LACTANTE  MAYOR DE # MESES QUE ES TRAIDO AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN </label>
   <label class="item"><input type="checkbox" onchange="updateNarrativa()"> MASCULINO LACTANTE MENOR DE # MESES QUE ES TRAIDO AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN</label>
@@ -121,7 +121,7 @@
       if (checks[4].checked) narrativa += "MASCULINO LACTANTE  MAYOR DE # MESES QUE ES TRAIDO AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN  ";
       if (checks[5].checked) narrativa += "MASCULINO LACTANTE MENOR DE # MESES QUE ES TRAIDO AL SERVICIO DE URGENCIAS POR SU MADRE QUIEN REFIERE CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN CONSISTENTE EN ";
 
-      narrativa += "NIÑO GRAVE ";
+      narrativa += " ";
       if (checks[6].checked) narrativa += "INTOLERANCIA A LA VIA ORAL PRESENTANDO # EPISODIOS EMETICOS DE CONTENIDO ALIMENTARIO ";
       if (checks[7].checked) narrativa += "INTOLERANCIA A LA VIA ORAL PRESENTANDO # EPISODIOS EMETICOS DE CONTENIDO BILIOSO ";
       if (checks[8].checked) narrativa += "VOMITO EN PROYECTIL ";
@@ -138,18 +138,18 @@
       if (checks[19].checked) narrativa += "PUSTULAS ";
       if (checks[20].checked) narrativa += "# EPISODIO DE CONVULSIONES TONICO CLONICAS GENRALIZADAS CON SIALORREA, DESVIACIÓN DE LA MIRADA, PERDIDA DE  CONTROL DE ESFINTERES ";
 
-      narrativa += "SINTOMAS ASOCIADOS ";
-      if (checks[21].checked) narrativa += "IRRITABILIDAD ";
-      if (checks[22].checked) narrativa += "LLANTO INCONSOLABLE ";
-      if (checks[23].checked) narrativa += "TOS SECA NO CIANOSANTE ";
-      if (checks[24].checked) narrativa += "TOS PRODUCTIVA NO CIANOSANTE ";
-      if (checks[25].checked) narrativa += "ODINOFAGIA ";
-      if (checks[26].checked) narrativa += "ADENOPATIAS CERVIALES/RETROAURICULARES ";
-      if (checks[27].checked) narrativa += "ARTROMIALGIAS ";
-      if (checks[28].checked) narrativa += "RIGIDEZ DE NUCA ";
-      if (checks[29].checked) narrativa += "FOTOFOBIA ";
+      narrativa += "ESTO ASOCIADO A ";
+      if (checks[21].checked) narrativa += "IRRITABILIDAD, ";
+      if (checks[22].checked) narrativa += "LLANTO INCONSOLABLE, ";
+      if (checks[23].checked) narrativa += "TOS SECA NO CIANOSANTE, ";
+      if (checks[24].checked) narrativa += "TOS PRODUCTIVA NO CIANOSANTE, ";
+      if (checks[25].checked) narrativa += "ODINOFAGIA, ";
+      if (checks[26].checked) narrativa += "ADENOPATIAS CERVIALES/RETROAURICULARES, ";
+      if (checks[27].checked) narrativa += "ARTROMIALGIAS. ";
+      if (checks[28].checked) narrativa += "RIGIDEZ DE NUCA, ";
+      if (checks[29].checked) narrativa += "FOTOFOBIA, ";
 
-      narrativa += "HALLAZGOS AL EF SIGNOS DE ALARMA ";
+      narrativa += "EXAMEN FISICO XXXXXX ";
       if (checks[30].checked) narrativa += "ASPECTO TOXICO ";
       if (checks[31].checked) narrativa += "HIPOACTIVIDAD ";
       if (checks[32].checked) narrativa += "HIPOTONIA ";
