@@ -3,16 +3,21 @@
 ---
 
 <!DOCTYPE html>
-
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Narrativa Dinámica</title>
+</head>
+<body>
   <h1>parte 1</h1>
   <label><input type="checkbox"> ACUDE AL SERVICIO DE URGENCIAS SIN ACOMPAÑANTE, REFIERE</label><br>
   <label><input type="checkbox"> ACUDE AL SERVICIO DE URGENCIAS ACOMPAÑADO DE XXXX, REFIERE</label><br>
   <label><input type="checkbox"> ES TRAIDO AL SERVICIO DE URGENCIAS POR MADRE QUIEN REFIERE QUE HA PRESENTADO</label><br>
 
   <h2>sintoma cardinal</h2>
-  <label><input type="checkbox"> disnea en reposo</label><br>
-  <label><input type="checkbox"> disnea de minimos esfuerzos</label><br>
-  <label><input type="checkbox"> disnea de medianos esfuerzos</label><br>
+  <label><input type="checkbox"> cuadro clinico de  # de evolución consistente en disnea en reposo</label><br>
+  <label><input type="checkbox"> cuadro clinico de  # de evolución consistente en disnea de minimos esfuerzos</label><br>
+  <label><input type="checkbox"> cuadro clinico de  # de evolución consistente en disnea de medianos esfuerzos</label><br>
 
   <h3>acompañado</h3>
   <label><input type="checkbox"> dolor con la respiración</label><br>
@@ -33,9 +38,9 @@
       if (checks[0].checked) narrativa += "ACUDE AL SERVICIO DE URGENCIAS SIN ACOMPAÑANTE, REFIERE ";
       if (checks[1].checked) narrativa += "ACUDE AL SERVICIO DE URGENCIAS ACOMPAÑADO DE XXXX, REFIERE ";
       if (checks[2].checked) narrativa += "ES TRAIDO AL SERVICIO DE URGENCIAS POR MADRE QUIEN REFIERE QUE HA PRESENTADO ";
-      if (checks[3].checked) narrativa += "disnea en reposo ";
-      if (checks[4].checked) narrativa += "disnea de minimos esfuerzos ";
-      if (checks[5].checked) narrativa += "disnea de medianos esfuerzos ";
+      if (checks[3].checked) narrativa += "cuadro clinico de  # de evolución consistente en disnea en reposo ";
+      if (checks[4].checked) narrativa += "cuadro clinico de  # de evolución consistente en disnea de minimos esfuerzos ";
+      if (checks[5].checked) narrativa += "cuadro clinico de  # de evolución consistente en disnea de medianos esfuerzos ";
       if (checks[6].checked) narrativa += "dolor con la respiración ";
       if (checks[7].checked) narrativa += "tos seca ";
       if (checks[8].checked) narrativa += "tos con esputo mucopurulento ";
@@ -48,3 +53,4 @@
   </script>
 </body>
 </html>
+
