@@ -1,0 +1,12 @@
+---
+{"dg-publish":true,"permalink":"/digital-garden/ordenes-13/colico-renal/","dgPassFrontmatter":true}
+---
+
+OBSERVACIÓN
+DIETA LÍQUIDA
+SSN AL 0,9% ADMIN BOLO DE 500 CC EV AHORA
+DIPIRONA AMP 1 GR ADMIN 2 GR EV CADA 8 H
+METOCLOPRAMIDA AMP 10MG/2ML, ADMIN 1 AMP EV AHORA
+SS. HEMOGRAMA, UROANALISIS, GRAM, CR, BUN, UROTAC
+REVALORAR
+CSV AC
