@@ -1,5 +1,0 @@
----
-{"dg-publish":true,"permalink":"/digital-garden/platillas-pa-todo/procedimientos/vendaje/","dgPassFrontmatter":true}
----
-
-SE REALIZA INMOVILIZACION CON VENDAJE BULTOSO DE ALGODON 6X5" DESDE TERCIO MEDIO DE MUSLO HASTA REGION MALEOLAR SE CUBRE CON VENDAJE ELASTICO DE 6X5". PROCEDIMIENTO SIN COMPLICACIONES
