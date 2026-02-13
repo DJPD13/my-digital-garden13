@@ -19,8 +19,8 @@
 <body>
 
   <h1> .</h1>
-  <label><input type="checkbox" onchange="updateNarrativa()"> PACIENTE MASCULINO DE # AÑOS </label>
-  <label><input type="checkbox" onchange="updateNarrativa()"> PACIENTE FEMENINA DE # AÑOS </label>
+  <label><input type="checkbox" onchange="updateNarrativa()"> M</label>
+  <label><input type="checkbox" onchange="updateNarrativa()"> F </label>
 
   <h2>CON ANTECEDENTE DE</h2>
   <label><input type="checkbox" onchange="updateNarrativa()"> HIPERTENSIÓN ARTERIAL,</label>
@@ -179,7 +179,7 @@
       if (checks[57].checked) narrativa += "DISTENSION ABDOMINAL ";
 
       narrativa += "SE CONSIDERA ";
-      if (checks[58].checked) narrativa += "PACIENTE SIN CRITERIOS DE MANEJO POR EL SERVICO DE URGENCIAS POR LO QUE SE DAN RECOMENDACIONES PARA CUIDADOS EN CASA Y SIGNOS DE ALARMA PARA CONSULTAR A URGENCIAS ";
+      if (checks[58].checked) narrativa += "PACIENTE SIN CRITERIOS DE MANEJO POR EL SERVICO DE URGENCIAS POR LO QUE SE REDIRECCIONA PARA VALORACION PRIORITARIA POR CONSULTA EXTERNA, SE DAN RECOMENDACIONES PARA CUIDADOS EN CASA Y SIGNOS DE ALARMA PARA CONSULTAR A URGENCIAS -- ESTA VALORACION DE TRIAGE NO CUENTA COMO INCAPACIDAD MEDICA, SE INDICA A PACIENTE QUE DEBE SOLICITA CITA MEDICA";
       if (checks[59].checked) narrativa += "PACIENTE QUE REQUIERE MANEJO INTRAHOSPITALARIO EN EL SERVICIO DE URGENCIA DEBIDO A # POR LO CUAL SE INGRESA ";
 
       document.getElementById("out").textContent = narrativa;
