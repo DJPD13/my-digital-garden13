@@ -1,0 +1,12 @@
+---
+{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/maternasor/itumaternas/","dgPassFrontmatter":true}
+---
+
+HOSPITALIZAR 
+ACOMPAÑANTE PERMANENTE 
+TAPON VENOSO 
+BROMURO DE HIOSCINA 20 MG IV ***PASAR LENTO Y DILUIDO*** 
+ACETAMINOFEN 1 GR VIA ORAL CADA 6 HORAS 
+CEFTRIAXONA 1 GR IV CADA 12 HORAS 
+CSV-AC 
+SS// UROANALISIS CON SONDA, HEMOGRAMA, PCR

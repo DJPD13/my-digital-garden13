@@ -47,8 +47,8 @@
   <label class="item"><input type="checkbox" onchange="updateNarrativa()"> ACUDE AL SERVICIO DE URGENCIAS REFIRIENDO CUADRO CLINICO DE # HORAS DE EVOLUCIÓN</label>
 
   <h4>CONSISTENTE EN</h4>
-  <label class="item"><input type="checkbox" onchange="updateNarrativa()"> DOLOR TORACICO OPRESIVO DE INICIO ##  Y INTENSIDAD ## EL CUAL SE REFIERE A ##, SE EXACERBA CON ##, Y MEJORA CON ##</label>
-  <label class="item"><input type="checkbox" onchange="updateNarrativa()"> DOLOR TORACICO PUNZANTE DE INICIO ##  Y INTENSIDAD ## EL CUAL SE REFIERE A ##, SE EXACERBA CON ##, Y MEJORA CON ##</label>
+  <label class="item"><input type="checkbox" onchange="updateNarrativa()"> DOLOR TORACICO OPRESIVO DE INICIO ##  E INTENSIDAD ## EL CUAL SE REFIERE A ##, SE EXACERBA CON ##, Y MEJORA CON ##</label>
+  <label class="item"><input type="checkbox" onchange="updateNarrativa()"> DOLOR TORACICO PUNZANTE DE INICIO ##  E INTENSIDAD ## EL CUAL SE REFIERE A ##, SE EXACERBA CON ##, Y MEJORA CON ##</label>
   <label class="item"><input type="checkbox" onchange="updateNarrativa()"> DISNEA DE ## ESFUERZOS</label>
   <label class="item"><input type="checkbox" onchange="updateNarrativa()"> DOLOR ABDOMINAL DIFUSO TIPO COLICO DE INICIO ##  Y INTENSIDAD ## , SE EXACERBA CON ##, Y MEJORA CON ##</label>
   <label class="item"><input type="checkbox" onchange="updateNarrativa()"> DOLOR ABDOMINAL  TIPO COLICO LOCALIZADO EN ## DE INICIO ##  Y INTENSIDAD ## EL CUAL SE REFIERE A ## </label>
