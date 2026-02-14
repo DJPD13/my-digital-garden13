@@ -40,9 +40,9 @@
 
   <h3> ,</h3>
   <label><input type="checkbox" onchange="updateNarrativa()"> ACUDE SIN ACOMPAÑANTE AL SERVICIO DE URGENCIAS REFIRIENDO CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN </label>
-  <label><input type="checkbox" onchange="updateNarrativa()"> ACUDE AL SERVICIO DE URGENCIAS CONACOMPAÑANTE () REFIRIENDO CUADRO CLINICO DE # HORAS DE EVOLUCIÓN</label>
-  <label><input type="checkbox" onchange="updateNarrativa()"> ACUDE AL SERVICIO DE URGENCIAS REFIRIENDO CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN</label>
-  <label><input type="checkbox" onchange="updateNarrativa()"> ACUDE AL SERVICIO DE URGENCIAS REFIRIENDO CUADRO CLINICO DE # HORAS DE EVOLUCIÓN</label>
+  <label><input type="checkbox" onchange="updateNarrativa()"> ACUDE AL SERVICIO DE URGENCIAS ACOMPAÑAD@ POR () REFIRIENDO CUADRO CLINICO DE # HORAS DE EVOLUCIÓN</label>
+  <label><input type="checkbox" onchange="updateNarrativa()"> ACUDE SIN ACOMPAÑANTE AL SERVICIO DE URGENCIAS REFIRIENDO CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN</label>
+  <label><input type="checkbox" onchange="updateNarrativa()"> ACUDE AL SERVICIO DE URGENCIAS ACOMPAÑAD@ POR ()  REFIRIENDO CUADRO CLINICO DE # HORAS DE EVOLUCIÓN</label>
 
   <h4></h4>
   <label><input type="checkbox" onchange="updateNarrativa()"> REFIRIENDO CUADRO CLINICO DE # DÍAS DE EVOLUCIÓN </label>
