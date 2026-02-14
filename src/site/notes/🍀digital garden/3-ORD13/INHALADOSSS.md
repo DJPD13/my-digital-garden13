@@ -1,9 +1,0 @@
----
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/inhaladosss/","dgPassFrontmatter":true}
----
-
-SALBUTAMOL  4 PUFF CADA 4 HORAS 
-BROMURO DE IPRATROPIO 4 PUFF CADA 6 HORA
-
-ESQUEMA DE RESCATE CON SALBUTAMOL: 
-**3 PUFFS CADA 20 MINUTOS POR 1 HORA, LUEGO 3 PUFFS CADA HORA POR 3 HORAS, LUEGO 3 PUFFS CADA 2 HORAS
