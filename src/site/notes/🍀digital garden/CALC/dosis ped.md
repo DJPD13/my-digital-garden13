@@ -2,7 +2,6 @@
 {"dg-publish":true,"permalink":"/digital-garden/calc/dosis-ped/","dgPassFrontmatter":true}
 ---
 
-
 <!doctype html>
 <html lang="es">
 <head>
@@ -14,6 +13,7 @@
       --bg:#0b1020; --card:#111a33; --text:#e8eeff; --muted:#a9b5df;
       --accent:#6ea8ff; --line:rgba(255,255,255,.10); --warn:#ffd56e;
     }
+    * { box-sizing:border-box; }
     body {
       margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:linear-gradient(180deg, #070a14, var(--bg)); color:var(--text);
@@ -30,7 +30,7 @@
     }
     label { display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
     input[type="number"], input[type="text"] {
-      width:220px; max-width:100%;
+      width:240px; max-width:100%;
       padding:10px 12px; border-radius:12px;
       border:1px solid var(--line); background:rgba(255,255,255,.04);
       color:var(--text); outline:none;
@@ -59,18 +59,23 @@
       background:rgba(255,255,255,.03);
       border-bottom:1px solid var(--line);
     }
+    .table-wrap { overflow-x:auto; }
     table {
-      width:100%; border-collapse:collapse;
+      width:100%; border-collapse:collapse; min-width: 920px;
     }
     th, td {
       border-bottom:1px solid var(--line);
       padding:10px 12px; vertical-align:top;
       font-size:13px;
+      white-space: normal;
+      overflow-wrap:anywhere;
+      word-break: break-word;
+      line-height: 1.25;
     }
     th {
       text-align:left; font-size:12px; color:var(--muted);
-      background:rgba(255,255,255,.02);
-      position:sticky; top:86px; z-index:10;
+      background:#0c142b;
+      border-bottom:1px solid var(--line);
     }
     tr:hover td { background:rgba(255,255,255,.02); }
     .mono { font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
@@ -80,17 +85,14 @@
       border:1px solid var(--line); background:rgba(255,255,255,.03);
       font-size:12px; color:var(--muted);
     }
-    .warn {
-      color:var(--warn);
-    }
+    .warn { color:var(--warn); }
     .footer-note {
       margin-top:10px; color:var(--muted); font-size:12px; line-height:1.35;
     }
     .right { text-align:right; }
     @media (max-width: 820px) {
-      th:nth-child(4), td:nth-child(4) { display:none; } /* ocultar presentación en móvil */
-      th { top:124px; }
-      input[type="number"] { width:100%; }
+      th { top:150px; }
+      input[type="number"], input[type="text"] { width:100%; }
     }
   </style>
 </head>
@@ -108,11 +110,11 @@
           <input id="buscar" type="text" placeholder="Ej: amoxicilina, salbutamol..." />
         </div>
         <div class="chip"><span class="muted">Total meds:</span> <b id="count">0</b></div>
-        <div class="chip"><span class="muted">Nota:</span> <b class="warn">Verifica siempre en guías (pediadosis) y contexto clínico.</b></div>
+        <div class="chip"><span class="muted">Nota:</span> <b class="warn">Verifica siempre en guías y contexto clínico.</b></div>
       </div>
       <div class="footer-note">
-        Esta página toma los datos de tu Excel y calcula <span class="pill">TOTAL (mg)</span> y <span class="pill">DOSIS FINAL</span> usando las fórmulas del archivo.
-        Si alguna celda decía “IV” u otro texto, aquí se muestra tal cual.
+        Calcula <span class="pill">TOTAL (mg)</span> y <span class="pill">DOSIS FINAL</span> con las fórmulas del Excel.
+        Si en el Excel la “dosis final” decía “IV” u otro texto, aquí se muestra tal cual.
       </div>
     </div>
   </header>
@@ -126,32 +128,31 @@ const DATA = [{"row": 7, "categoria": "ANALGESICOS", "med": "ACETAMINOFEN", "dos
 
 function fmt(n) {
   if (n === null || n === undefined || Number.isNaN(n)) return "";
-  // Máx 3 decimales, sin ceros a la derecha
   const s = (Math.round(n * 1000) / 1000).toFixed(3);
   return s.replace(/\.0+$/,"").replace(/(\.\d*[1-9])0+$/,"$1");
 }
 
 function compileFormula(formula, row, vars) {
-  // formula: string tipo "=(C7*D7)" (sin funciones)
   if (!formula || typeof formula !== "string") return null;
   const f = formula.trim();
   if (!f.startsWith("=")) return null;
 
   let expr = f.slice(1);
-  // reemplazar refs de la misma fila: C(<Cell 'Hoja1'.A120>, <Cell 'Hoja1'.B120>, <Cell 'Hoja1'.C120>, <Cell 'Hoja1'.D120>, <Cell 'Hoja1'.E120>, <Cell 'Hoja1'.F120>, <Cell 'Hoja1'.G120>, <Cell 'Hoja1'.H120>, <Cell 'Hoja1'.I120>, <Cell 'Hoja1'.J120>, <Cell 'Hoja1'.K120>, <Cell 'Hoja1'.L120>) -> W, D(<Cell 'Hoja1'.A120>, <Cell 'Hoja1'.B120>, <Cell 'Hoja1'.C120>, <Cell 'Hoja1'.D120>, <Cell 'Hoja1'.E120>, <Cell 'Hoja1'.F120>, <Cell 'Hoja1'.G120>, <Cell 'Hoja1'.H120>, <Cell 'Hoja1'.I120>, <Cell 'Hoja1'.J120>, <Cell 'Hoja1'.K120>, <Cell 'Hoja1'.L120>) -> DOSE, E(<Cell 'Hoja1'.A120>, <Cell 'Hoja1'.B120>, <Cell 'Hoja1'.C120>, <Cell 'Hoja1'.D120>, <Cell 'Hoja1'.E120>, <Cell 'Hoja1'.F120>, <Cell 'Hoja1'.G120>, <Cell 'Hoja1'.H120>, <Cell 'Hoja1'.I120>, <Cell 'Hoja1'.J120>, <Cell 'Hoja1'.K120>, <Cell 'Hoja1'.L120>) -> TOTAL
-  expr = expr.replace(new RegExp("C"+row+"\b","g"), "W");
-  expr = expr.replace(new RegExp("D"+row+"\b","g"), "DOSE");
-  expr = expr.replace(new RegExp("E"+row+"\b","g"), "TOTAL");
 
-  // Seguridad básica: permitir solo números, operadores, paréntesis, espacios y variables W/DOSE/TOTAL y punto decimal
-  if (!/^[0-9+\-*/().\sWDOSETAL]+$/.test(expr)) {
-    return null;
-  }
+  // Reemplazos seguros para referencias de la misma fila.
+  // Usamos (?!\d) para evitar confundir C7 con C70, etc.
+  expr = expr.replace(new RegExp("C" + row + "(?!\\d)", "g"), "W");
+  expr = expr.replace(new RegExp("D" + row + "(?!\\d)", "g"), "DOSE");
+  expr = expr.replace(new RegExp("E" + row + "(?!\\d)", "g"), "TOTAL");
+
+  // Permitir SOLO números, operadores, paréntesis, espacios y nombres de variables.
+  if (!/^[0-9+\-*/().\sA-Z]+$/.test(expr)) return null;
 
   try {
     // eslint-disable-next-line no-new-func
     const fn = new Function("W","DOSE","TOTAL", "return (" + expr + ");");
-    return fn(vars.W, vars.DOSE, vars.TOTAL);
+    const out = fn(vars.W, vars.DOSE, vars.TOTAL);
+    return (typeof out === "number" && Number.isFinite(out)) ? out : null;
   } catch(e) {
     return null;
   }
@@ -168,7 +169,8 @@ function groupByCategory(items) {
 }
 
 function render() {
-  const peso = parseFloat(document.getElementById("peso").value);
+  const pesoRaw = document.getElementById("peso").value;
+  const peso = parseFloat(String(pesoRaw).replace(",", ".")); // soporte decimal con coma
   const q = (document.getElementById("buscar").value || "").trim().toLowerCase();
 
   const filtered = DATA.filter(it => {
@@ -192,6 +194,9 @@ function render() {
     h2.textContent = cat;
     card.appendChild(h2);
 
+    const wrap = document.createElement("div");
+    wrap.className = "table-wrap";
+
     const table = document.createElement("table");
     table.innerHTML = `
       <thead>
@@ -211,18 +216,17 @@ function render() {
     for (const it of arr) {
       const dose = (typeof it.dosis_mgkg === "number") ? it.dosis_mgkg : NaN;
 
-      // Calcular TOTAL (mg) según fórmula de Excel
+      // TOTAL (mg)
       let total = compileFormula(it.total_formula, it.row, {
         W: peso,
         DOSE: dose,
         TOTAL: NaN
       });
       if (total === null) {
-        // fallback típico
-        total = (peso && !Number.isNaN(dose)) ? (peso * dose) : null;
+        total = (Number.isFinite(peso) && Number.isFinite(dose)) ? (peso * dose) : null;
       }
 
-      // Calcular DOSIS FINAL según fórmula (si aplica)
+      // DOSIS FINAL
       let finalText = "";
       let finalVal = compileFormula(it.final_formula, it.row, {
         W: peso,
@@ -230,13 +234,19 @@ function render() {
         TOTAL: total
       });
 
-      if (finalVal !== null && finalVal !== undefined && !Number.isNaN(finalVal)) {
+      if (finalVal !== null) {
         finalText = fmt(finalVal);
       } else {
-        // Si no es fórmula, mostrar texto tal cual (ej: "IV")
-        finalText = (it.final_formula && !it.final_formula.trim().startsWith("="))
-          ? it.final_formula.trim()
-          : "";
+        if (it.final_formula && !it.final_formula.trim().startsWith("=")) {
+          // Si la "dosis final" es texto (ej: IV/VO/IM), mostramos la dosis calculada + vía
+          if (total !== null && total !== undefined && !Number.isNaN(total)) {
+            finalText = fmt(total) + " " + it.final_formula.trim();
+          } else {
+            finalText = it.final_formula.trim();
+          }
+        } else {
+          finalText = "";
+        }
       }
 
       const tr = document.createElement("tr");
@@ -251,7 +261,8 @@ function render() {
       tbody.appendChild(tr);
     }
 
-    card.appendChild(table);
+    wrap.appendChild(table);
+    card.appendChild(wrap);
     app.appendChild(card);
   }
 }
