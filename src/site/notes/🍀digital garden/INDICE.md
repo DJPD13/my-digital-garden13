@@ -5,7 +5,7 @@
 Calculo Dosis Pediátrica: [[🍀digital garden/CALC/dosis ped\|dosis ped]]
 
 # ENFERMEDAD ACTUAL
-- [[🍀digital garden/1-EA13/EA GENERAL ADULT\|EA GENERAL ADULT]]
+- [[EA GENERAL ADULT\|EA GENERAL ADULT]]
 - [[2ZZ-TROPICALES/DENGUE\|DENGUE]]
 	- [[🍀digital garden/DENGUE COMP/DENGUEOR\|DENGUEOR]]
 
@@ -26,7 +26,7 @@ Calculo Dosis Pediátrica: [[🍀digital garden/CALC/dosis ped\|dosis ped]]
 - [[🍀digital garden/EVENTOS/POST EXPOSICIÓN VIH\|POST EXPOSICIÓN VIH]]
 
 # MEDICINA LEGAL
-- [[🍀digital garden/MED LEGAL/LESIONES PERSONALES/EJEMPLOS lesiones personales\|EJEMPLOS lesiones personales]]
+- [[EJEMPLOS lesiones personales\|EJEMPLOS lesiones personales]]
 
 
 
