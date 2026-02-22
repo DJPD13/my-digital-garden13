@@ -36,7 +36,7 @@
 
 <script>
 /* =========================
-   INPUT: PEGADO DEL USUARIO
+   RAW: TU TEXTO (PEGADO)
    ========================= */
 const RAW = `header 1:  .
 NO PATOLOGICO =>>>  
@@ -62,87 +62,62 @@ CONGESTIÓN CONJUNTIVAL SIN SECRECIÓN PURULENTA O MUCOSA
 DOLOR EN ANGULO MANDIBULAR **`;
 
 /* =========================
-   PARSER (sin librerías)
+   HELPERS
    ========================= */
-function escapeHtml(s) {
-  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
-
-function extractBetweenMarkers(s) {
-  const start = s.indexOf("=>>>");
-  const end = s.indexOf("<<<");
-  if (start === -1 || end === -1 || end < start) return { outer: s, inner: null };
-  const inner = s.slice(start + 4, end);
-  const outer = (s.slice(0, start) + s.slice(end + 3)).trim();
-  return { outer, inner };
-}
-
 function stripConnectParens(s) {
-  // Remueve SOLO paréntesis que contienen "CONECTAR CON"
-  // (mantiene otros paréntesis)
   return s.replace(/\(([^)]*CONECTAR CON[^)]*)\)/gi, "").replace(/\s{2,}/g, " ").trim();
 }
-
 function parseLinkTarget(s) {
-  // Detecta: (CONECTAR CON OPCION X DE HEADER Y)
   const m = s.match(/\(\s*CONECTAR\s+CON\s+OPCION\s+(\d+)\s+DE\s+HEADER\s+(\d+)\s*\)/i);
   if (!m) return null;
   return { x: Number(m[1]), y: Number(m[2]) };
 }
-
 function parseDefaultFromHeaderTitle(titleRaw) {
-  // header N: <título> (DEFAULT =>>> <TEXTO_MULTILÍNEA> <<<)
   const m = titleRaw.match(/\(\s*DEFAULT\s*=>>>\s*([\s\S]*?)\s*<<<\s*\)\s*$/i);
   if (!m) return { title: titleRaw.trim(), defText: null };
   const defText = m[1];
   const title = titleRaw.replace(m[0], "").trim();
   return { title, defText };
 }
+function makeHeaderTag(n) {
+  const level = Math.min(Math.max(n, 1), 6);
+  return "h" + level;
+}
 
-function parseOptionLine(lineRaw) {
-  const line = lineRaw.trimEnd();
-
-  const link = parseLinkTarget(line);
-  let cleaned = stripConnectParens(line);
-
-  // Multilínea automática por opción
-  const multi = extractBetweenMarkers(cleaned);
-  cleaned = multi.outer; // para label/narrativa "normal"
-  const multilineText = (multi.inner != null) ? multi.inner : null;
+/* =========================
+   OPTION PARSER (una línea)
+   ========================= */
+function parseOptionLineSingleLine(lineRaw) {
+  const lineWithLink = lineRaw.trimEnd();
+  const link = parseLinkTarget(lineWithLink);
+  let cleaned = stripConnectParens(lineWithLink);
 
   // Dropdown ***
-  // Formato: PREFIJO ***1.OPCION 2.OPCION2 3.OPCION3 SUFIJO
   let dropdown = null;
   if (cleaned.includes("***")) {
     const idx = cleaned.indexOf("***");
     const before = cleaned.slice(0, idx);
     const after = cleaned.slice(idx + 3);
-    // Opciones inmediatamente después: 1.xxx 2.yyy ...
+
     const opts = [];
-    const re = /(\d+)\.([^]+?)(?=(?:\s+\d+\.)|$)/g; // captura hasta próximo " n."
+    const re = /(\d+)\.([^]+?)(?=(?:\s+\d+\.)|$)/g;
     let mm;
     while ((mm = re.exec(after)) !== null) {
       const val = mm[2].trim();
       if (val) opts.push(val);
     }
-    // Sufijo: si el texto después de las opciones tuviera extra,
-    // este parser simple lo incluye dentro de la última opción.
-    dropdown = { before: before, options: opts, after: "" };
-    cleaned = (before + after).trim(); // no se usa para render, solo para fallback
+
+    dropdown = { before, options: opts, after: "" };
   }
 
-  // Input ** (un solo input por opción, según regla)
+  // Input **
   let textInput = null;
-  if (dropdown == null && cleaned.includes("**")) {
+  if (!dropdown && cleaned.includes("**")) {
     const idx = cleaned.indexOf("**");
-    const before = cleaned.slice(0, idx);
-    const after = cleaned.slice(idx + 2);
-    textInput = { before: before, after: after };
+    textInput = { before: cleaned.slice(0, idx), after: cleaned.slice(idx + 2) };
   }
 
-  // Texto base (sin **/*** y sin paréntesis de conectar y sin multilinea)
-  let labelParts = null;
-  let narrativeParts = null;
+  let labelParts, narrativeParts;
 
   if (dropdown) {
     labelParts = { type: "dropdown", before: dropdown.before, after: dropdown.after, options: dropdown.options };
@@ -155,16 +130,21 @@ function parseOptionLine(lineRaw) {
     narrativeParts = { type: "plain", text: cleaned.trim() };
   }
 
-  return { raw: lineRaw, link, labelParts, narrativeParts, multilineText };
+  return { raw: lineRaw, link, labelParts, narrativeParts, multilineText: null };
 }
 
+/* =========================
+   HEADER PARSER (multilínea real)
+   - Opciones con =>>> ... <<< pueden abarcar varias líneas
+   - Si header trae =>>> ... <<< sin "DEFAULT", se usa como DEFAULT implícito
+   ========================= */
 function parseHeaders(raw) {
   const lines = raw.split(/\r?\n/);
 
   const headers = [];
   let current = null;
-  let i = 0;
 
+  let i = 0;
   while (i < lines.length) {
     const line = lines[i];
 
@@ -173,21 +153,25 @@ function parseHeaders(raw) {
       const n = Number(headerMatch[1]);
       const titleRaw = headerMatch[2] || "";
 
-      const { title: titleNoDefault, defText } = parseDefaultFromHeaderTitle(titleRaw);
+      const { title: titleNoDefault, defText: defFormal } = parseDefaultFromHeaderTitle(titleRaw);
 
-      // Si el título trae =>>> <<< (como en tus headers 2 y 3), lo ocultamos del texto del header
-      // y NO lo usamos como DEFAULT (no hay regla para eso en header). Se elimina del título mostrado.
-      const tMulti = extractBetweenMarkers(titleNoDefault);
-      let displayTitle = tMulti.outer;
+      // DEFAULT implícito en la línea del header (=>>> ... <<<)
+      let titleDisplay = titleNoDefault;
+      let defImplicit = null;
 
-      // Limpia " //" al final si existe (se mantiene el texto si era parte real)
-      displayTitle = displayTitle.replace(/\s*\/\/\s*$/, "").trim();
+      const start = titleDisplay.indexOf("=>>>");
+      const end = titleDisplay.indexOf("<<<");
+      if (start !== -1 && end !== -1 && end > start) {
+        defImplicit = titleDisplay.slice(start + 4, end);
+        titleDisplay = (titleDisplay.slice(0, start) + titleDisplay.slice(end + 3)).trim();
+      }
+
+      titleDisplay = titleDisplay.replace(/\s*\/\/\s*$/, "").trim();
 
       current = {
         n,
-        titleRaw: titleRaw.trim(),
-        titleDisplay: displayTitle,
-        defaultText: defText,
+        titleDisplay,
+        defaultText: (defFormal != null ? defFormal : defImplicit),
         options: []
       };
       headers.push(current);
@@ -195,17 +179,59 @@ function parseHeaders(raw) {
       continue;
     }
 
-    // Opción (si hay header activo)
-    if (current && line.trim() !== "") {
-      // Si el renglón es solo "<<<" o solo marcadores sueltos, igual lo procesa (pero tu texto ya viene completo)
-      const opt = parseOptionLine(line);
-      current.options.push(opt);
+    if (!current || line.trim() === "") {
+      i++;
+      continue;
     }
 
+    // Opciones con =>>> ... <<< (pueden ser varias líneas)
+    const idxStart = line.indexOf("=>>>");
+    if (idxStart !== -1) {
+      // Caso cierre en misma línea
+      const idxEndSame = line.indexOf("<<<", idxStart + 4);
+      if (idxEndSame !== -1) {
+        const before = line.slice(0, idxStart);
+        const inner = line.slice(idxStart + 4, idxEndSame);
+        const after = line.slice(idxEndSame + 3);
+
+        const base = parseOptionLineSingleLine((before + after).trim());
+        base.multilineText = inner; // tal cual
+        current.options.push(base);
+        i++;
+        continue;
+      }
+
+      // Caso cierre en línea futura
+      const before = line.slice(0, idxStart);
+      let collected = line.slice(idxStart + 4);
+      collected += "\n";
+
+      i++;
+      while (i < lines.length) {
+        const l2 = lines[i];
+        const idxEnd = l2.indexOf("<<<");
+        if (idxEnd !== -1) {
+          collected += l2.slice(0, idxEnd);
+          i++; // consume línea que cierra
+          break;
+        } else {
+          collected += l2 + "\n";
+          i++;
+        }
+      }
+
+      const base = parseOptionLineSingleLine(before.trim());
+      base.multilineText = collected; // tal cual
+      current.options.push(base);
+      continue;
+    }
+
+    // Opción normal
+    current.options.push(parseOptionLineSingleLine(line));
     i++;
   }
 
-  // Asigna IDs obligatorios id="h<Y>_op<X>"
+  // IDs obligatorios id="h<Y>_op<X>"
   headers.forEach(h => {
     h.options.forEach((op, idx) => {
       op.optionIndex = idx + 1;
@@ -222,11 +248,6 @@ function parseHeaders(raw) {
    ========================= */
 const headersData = parseHeaders(RAW);
 const form = document.getElementById("formulario");
-
-function makeHeaderTag(n) {
-  const level = Math.min(Math.max(n, 1), 6);
-  return "h" + level;
-}
 
 function render() {
   form.innerHTML = "";
@@ -252,44 +273,32 @@ function render() {
       if (op.linkTargetId) cb.setAttribute("data-link", op.linkTargetId);
 
       label.appendChild(cb);
-
-      // Espaciado texto
       label.appendChild(document.createTextNode(" "));
 
       if (op.labelParts.type === "plain") {
         label.appendChild(document.createTextNode(op.labelParts.text));
       } else if (op.labelParts.type === "text") {
         label.appendChild(document.createTextNode(op.labelParts.before));
-
         const inp = document.createElement("input");
         inp.type = "text";
         inp.id = op.id + "_txt";
-        inp.setAttribute("data-for", op.id);
         label.appendChild(inp);
-
         label.appendChild(document.createTextNode(op.labelParts.after));
       } else if (op.labelParts.type === "dropdown") {
         label.appendChild(document.createTextNode(op.labelParts.before));
-
         const sel = document.createElement("select");
         sel.id = op.id + "_sel";
-        sel.setAttribute("data-for", op.id);
-
-        // placeholder vacío
         const empty = document.createElement("option");
         empty.value = "";
         empty.textContent = "";
         sel.appendChild(empty);
-
         (op.labelParts.options || []).forEach(v => {
           const o = document.createElement("option");
           o.value = v;
           o.textContent = v;
           sel.appendChild(o);
         });
-
         label.appendChild(sel);
-
         label.appendChild(document.createTextNode(op.labelParts.after || ""));
       }
 
@@ -319,20 +328,17 @@ render();
 function updateNarrativa() {
   const checks = document.querySelectorAll("input[type=checkbox]");
 
-  // (checks se obtiene como pide la regla; lo usamos indirectamente)
   const includeHeaders = !!document.getElementById("toggleHeaders")?.checked;
-
   let narrativa = "";
 
   headersData.forEach(h => {
-    // ¿alguna marcada en este header?
     const marked = h.options.filter(op => {
       const cb = document.getElementById(op.id);
       return cb && cb.checked;
     });
 
+    // DEFAULT por header
     if (marked.length === 0) {
-      // DEFAULT si existe
       if (h.defaultText != null && String(h.defaultText).length > 0) {
         if (narrativa && !narrativa.endsWith("\n")) narrativa += "\n";
         narrativa += String(h.defaultText);
@@ -341,7 +347,7 @@ function updateNarrativa() {
       return;
     }
 
-    // Si hay marcadas: NO agregar default
+    // Header title (según toggleHeaders)
     if (includeHeaders) {
       if (h.titleDisplay && h.titleDisplay.trim() !== "") {
         if (narrativa && !narrativa.endsWith("\n")) narrativa += "\n";
@@ -352,8 +358,6 @@ function updateNarrativa() {
     // Opciones marcadas en orden
     marked.forEach(op => {
       const parts = op.narrativeParts;
-
-      // Construye texto normal (sin mostrar **/***)
       let piece = "";
 
       if (parts.type === "plain") {
@@ -372,14 +376,13 @@ function updateNarrativa() {
         piece += parts.after || "";
       }
 
-      // Agrega texto normal si existe
       if (piece.trim() !== "") {
         if (narrativa && !narrativa.endsWith("\n")) narrativa += "\n";
         narrativa += piece.trim();
         if (!narrativa.endsWith("\n")) narrativa += "\n";
       }
 
-      // Multilínea =>>> <<< (tal cual)
+      // Multilínea =>>> ... <<< (tal cual)
       if (op.multilineText != null) {
         const mt = String(op.multilineText);
         if (mt.length > 0) {
@@ -393,16 +396,6 @@ function updateNarrativa() {
 
   document.getElementById("resultado").textContent = narrativa.trim();
 }
-
-// Opcional: actualizar narrativa cuando cambias algo (sin romper reglas)
-document.addEventListener("input", (e) => {
-  const t = e.target;
-  if (!t) return;
-  if (t.matches('input[type="checkbox"], input[type="text"], select')) {
-    // no auto-ejecuta si no quieres; comentar la siguiente línea si prefieres solo con botón:
-    // updateNarrativa();
-  }
-});
 </script>
 
 </body>
