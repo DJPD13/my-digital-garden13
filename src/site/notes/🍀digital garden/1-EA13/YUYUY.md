@@ -10,13 +10,7 @@
   <title>Checklist Narrativa</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.3;
-      padding: 12px;
-      font-size: 13px;
-    }
-
+    body { font-family: Arial, sans-serif; line-height: 1.3; padding: 12px; font-size: 13px; }
     h1 { font-size: 16px; margin: 14px 0 6px; }
     h2 { font-size: 15px; margin: 14px 0 6px; }
     h3 { font-size: 14px; margin: 14px 0 6px; }
@@ -30,24 +24,12 @@
       gap: 6px;
       margin: 4px 0;
       font-size: 13px;
+      flex-wrap: wrap;
     }
 
-    input[type="text"] {
-      width: 160px;
-      font-size: 12px;
-    }
-
-    button {
-      margin-top: 12px;
-      padding: 6px 10px;
-      font-size: 13px;
-    }
-
-    #resultado {
-      margin-top: 12px;
-      font-size: 13px;
-      white-space: pre-wrap;
-    }
+    input[type="text"], select { width: 160px; font-size: 12px; }
+    button { margin-top: 12px; padding: 6px 10px; font-size: 13px; }
+    #resultado { margin-top: 12px; font-size: 13px; white-space: pre-wrap; }
   </style>
 </head>
 
@@ -55,8 +37,14 @@
 
   <h1> .</h1>
   <div class="grupo">
-    <label><input type="checkbox" id="h1_op1" onchange="handleLink(this)">PACIENTE MASCULINO DE <input type="text" id="h1_op1_txt">ESCRIBIR AÑOS</label>
-    <label><input type="checkbox" id="h1_op2" onchange="handleLink(this)">PACIENTE FEMENINA DE <input type="text" id="h1_op2_txt">ESCRIBIR AÑOS</label>
+    <label>
+      <input type="checkbox" id="h1_op1" onchange="handleLink(this)">
+      PACIENTE MASCULINO DE <input type="text" id="h1_op1_txt">ESCRIBIR AÑOS
+    </label>
+    <label>
+      <input type="checkbox" id="h1_op2" onchange="handleLink(this)">
+      PACIENTE FEMENINA DE <input type="text" id="h1_op2_txt">ESCRIBIR AÑOS
+    </label>
   </div>
 
   <h2>CON ANTECEDENTE DE</h2>
@@ -64,7 +52,18 @@
     <label><input type="checkbox" id="h2_op1" onchange="handleLink(this)">HIPERTENSIÓN ARTERIAL,</label>
     <label><input type="checkbox" id="h2_op2" onchange="handleLink(this)">DIABETES MELLITUS TIPO 2 NO INSULINO REQUIRIENTE, ADHERENTE, SIN COMPLICACIONES MACROVASCULARES</label>
     <label><input type="checkbox" id="h2_op3" onchange="handleLink(this)">DISLIPIDEMIA</label>
-    <label><input type="checkbox" id="h2_op4" onchange="handleLink(this)">ENFERMEDAD RENAL CRONICA,</label>
+
+    <label>
+      <input type="checkbox" id="h2_op4" onchange="handleLink(this)">
+      ENFERMEDAD RENAL CRONICA, KDIGO
+      <select id="h2_op4_sel">
+        <option value=""></option>
+        <option value="G2">G2</option>
+        <option value="G3">G3</option>
+        <option value="G4">G4</option>
+      </select>
+    </label>
+
     <label><input type="checkbox" id="h2_op5" onchange="handleLink(this)">ENFERMEDAD PULMONAR OBSTRUCTIVA CRONICA MMRC: <input type="text" id="h2_op5_txt">,</label>
     <label><input type="checkbox" id="h2_op6" onchange="handleLink(this)">FALLA CARDIACA NYHA: <input type="text" id="h2_op6_txt">,</label>
     <label><input type="checkbox" id="h2_op7" onchange="handleLink(this)">HIPOTIROIDISMO,</label>
@@ -80,7 +79,7 @@
   <h3> ,</h3>
   <div class="grupo">
     <label><input type="checkbox" id="h3_op1" onchange="handleLink(this)">ACUDE SIN ACOMPAÑANTE AL SERVICIO DE URGENCIAS SIN ACOMPAÑANTE</label>
-    <label><input type="checkbox" id="h3_op2" onchange="handleLink(this)">ACUDE AL SERVICIO DE URGENCIAS CON ACOMPAÑANTE (<input type="text" id="h3_op2_txt">)</label>
+    <label><input type="checkbox" id="h3_op2" onchange="handleLink(this)">ACUDE AL SERVICIO DE URGENCIAS CON ACOMPAÑANTE (<input type="text" id="h3_op2_txt">) </label>
   </div>
 
   <h4> ,</h4>
@@ -95,7 +94,7 @@
 
   <script>
     function handleLink(source) {
-      const targetId = source.dataset.link;
+      const targetId = source.getAttribute("data-link");
       if (!targetId) return;
       const target = document.getElementById(targetId);
       if (target) target.checked = source.checked;
@@ -105,101 +104,122 @@
       const checks = document.querySelectorAll("input[type=checkbox]");
       let narrativa = "";
 
+      // HEADER 1
       narrativa += " . ";
 
+      // h1_op1: PACIENTE MASCULINO DE **ESCRIBIR AÑOS
       if (checks[0].checked) {
         narrativa += "PACIENTE MASCULINO DE ";
-        const v = h1_op1_txt.value.trim();
-        if (v) narrativa += v + " ";
+        const v = document.getElementById("h1_op1_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
         narrativa += "ESCRIBIR AÑOS ";
       }
 
+      // h1_op2: PACIENTE FEMENINA DE **ESCRIBIR AÑOS
       if (checks[1].checked) {
         narrativa += "PACIENTE FEMENINA DE ";
-        const v = h1_op2_txt.value.trim();
-        if (v) narrativa += v + " ";
+        const v = document.getElementById("h1_op2_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
         narrativa += "ESCRIBIR AÑOS ";
       }
 
+      // HEADER 2
       narrativa += "CON ANTECEDENTE DE ";
 
       if (checks[2].checked) narrativa += "HIPERTENSIÓN ARTERIAL, ";
       if (checks[3].checked) narrativa += "DIABETES MELLITUS TIPO 2 NO INSULINO REQUIRIENTE, ADHERENTE, SIN COMPLICACIONES MACROVASCULARES ";
       if (checks[4].checked) narrativa += "DISLIPIDEMIA ";
-      if (checks[5].checked) narrativa += "ENFERMEDAD RENAL CRONICA, ";
 
+      // h2_op4: ENFERMEDAD RENAL CRONICA, KDIGO ***1.G2 2.G3 3.G4
+      if (checks[5].checked) {
+        narrativa += "ENFERMEDAD RENAL CRONICA, KDIGO ";
+        const v = document.getElementById("h2_op4_sel").value.trim();
+        if (v !== "") narrativa += v + " ";
+      }
+
+      // h2_op5: ENFERMEDAD PULMONAR OBSTRUCTIVA CRONICA MMRC: **,
       if (checks[6].checked) {
         narrativa += "ENFERMEDAD PULMONAR OBSTRUCTIVA CRONICA MMRC: ";
-        const v = h2_op5_txt.value.trim();
-        if (v) narrativa += v + " ";
+        const v = document.getElementById("h2_op5_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
         narrativa += ", ";
       }
 
+      // h2_op6: FALLA CARDIACA NYHA: **,
       if (checks[7].checked) {
         narrativa += "FALLA CARDIACA NYHA: ";
-        const v = h2_op6_txt.value.trim();
-        if (v) narrativa += v + " ";
+        const v = document.getElementById("h2_op6_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
         narrativa += ", ";
       }
 
       if (checks[8].checked) narrativa += "HIPOTIROIDISMO, ";
       if (checks[9].checked) narrativa += "FIBRILACIÓN AURICULAR, ";
 
+      // h2_op9: TABAQUISMO PESADO CON IPA: ACTIVO/ABANDONO HACE **
       if (checks[10].checked) {
         narrativa += "TABAQUISMO PESADO CON IPA: ACTIVO/ABANDONO HACE ";
-        const v = h2_op9_txt.value.trim();
-        if (v) narrativa += v + " ";
+        const v = document.getElementById("h2_op9_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
       }
 
       if (checks[11].checked) narrativa += "EXPOSICIÓN A BIOMASA ";
 
+      // h2_op11: ALERGIA A **,
       if (checks[12].checked) {
         narrativa += "ALERGIA A ";
-        const v = h2_op11_txt.value.trim();
-        if (v) narrativa += v + " ";
+        const v = document.getElementById("h2_op11_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
         narrativa += ", ";
       }
 
+      // h2_op12: HOSPITALIZACIÓN EN LOS ULTIMOS 3 MESES POR **
       if (checks[13].checked) {
         narrativa += "HOSPITALIZACIÓN EN LOS ULTIMOS 3 MESES POR ";
-        const v = h2_op12_txt.value.trim();
-        if (v) narrativa += v + " ";
+        const v = document.getElementById("h2_op12_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
       }
 
+      // h2_op13: VIH (CONECTAR CON OPCION 2 DE HEADER 4) -> visible "VIH"
       if (checks[14].checked) narrativa += "VIH ";
+
+      // h2_op14: CANCER DE
       if (checks[15].checked) narrativa += "CANCER DE  ";
 
+      // HEADER 3
       narrativa += " , ";
 
       if (checks[16].checked) narrativa += "ACUDE SIN ACOMPAÑANTE AL SERVICIO DE URGENCIAS SIN ACOMPAÑANTE ";
 
+      // h3_op2: ACUDE ... (**)  -> paréntesis visibles
       if (checks[17].checked) {
         narrativa += "ACUDE AL SERVICIO DE URGENCIAS CON ACOMPAÑANTE (";
-        const v = h3_op2_txt.value.trim();
-        if (v) narrativa += v + " ";
-        narrativa += ") ";
+        const v = document.getElementById("h3_op2_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
+        narrativa += ")  ";
       }
 
+      // HEADER 4
       narrativa += " , ";
 
       if (checks[18].checked) {
         narrativa += "REFIRIENDO CUADRO CLINICO DE ";
-        const v = h4_op1_txt.value.trim();
-        if (v) narrativa += v + " ";
+        const v = document.getElementById("h4_op1_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
         narrativa += "HORAS DE EVOLUCIÓN CONSISTENTE EN ";
       }
 
       if (checks[19].checked) {
         narrativa += "REFIRIENDO CUADRO CLINICO DE ";
-        const v = h4_op2_txt.value.trim();
-        if (v) narrativa += v + " ";
+        const v = document.getElementById("h4_op2_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
         narrativa += "DÍAS DE EVOLUCIÓN CONSISTENTE EN ";
       }
 
       if (checks[20].checked) {
         narrativa += "REFIRIENDO CUADRO CLINICO DE ";
-        const v = h4_op3_txt.value.trim();
-        if (v) narrativa += v + " ";
+        const v = document.getElementById("h4_op3_txt").value.trim();
+        if (v !== "") narrativa += v + " ";
         narrativa += "MESES DE EVOLUCIÓN CONSISTENTE ";
       }
 
