@@ -10,7 +10,7 @@ Calculo Dosis Pediátrica: [[🍀digital garden/CALC/dosis ped\|dosis ped]]
 	- [[🍀digital garden/DENGUE COMP/DENGUEOR\|DENGUEOR]]
 
 # Materna
-- [[🍀digital garden/1-EA13/Plant Matternass\|Plant Matternass]]
+- [[🍀digital garden/PLANTILLAS PROTECTED/Plant Matternass\|Plant Matternass]]
 
 # PROCEDIMIENTOS
 - [[🍀digital garden/Procedimientos/Ferula\|Ferula]]
@@ -24,6 +24,9 @@ Calculo Dosis Pediátrica: [[🍀digital garden/CALC/dosis ped\|dosis ped]]
 	- En niños no se puede, solo nosotros les damos salida
 - [[🍀digital garden/EVENTOS/IVE ANTES DE LA SEMANA\|IVE ANTES DE LA SEMANA]]
 - [[🍀digital garden/EVENTOS/POST EXPOSICIÓN VIH\|POST EXPOSICIÓN VIH]]
+
+# MEDICINA LEGAL
+- [[🍀digital garden/MED LEGAL/LESIONES PERSONALES/EJEMPLOS lesiones personales\|EJEMPLOS lesiones personales]]
 
 
 
