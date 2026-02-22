@@ -61,24 +61,37 @@ MUCOSA ORAL SECA SIN LESIONES
 CONGESTIÓN CONJUNTIVAL SIN SECRECIÓN PURULENTA O MUCOSA
 DOLOR EN ANGULO MANDIBULAR **`;
 
+/* =========================================================
+   NOTA CRÍTICA (tu caso real):
+   - El bloque =>>> ... <<< puede incluir líneas vacías o con espacios.
+   - Para preservarlo EXACTO:
+     * Capturamos por líneas sin usar trim() dentro del multilínea.
+     * En el resultado, usamos white-space: pre-wrap.
+   ========================================================= */
+
 /* =========================
    HELPERS
    ========================= */
-function stripConnectParens(s) {
-  return s.replace(/\(([^)]*CONECTAR CON[^)]*)\)/gi, "").replace(/\s{2,}/g, " ").trim();
+function stripConnectParens_onlyForNormalText(s) {
+  // SOLO se usa para el texto normal (label/narrativa normal).
+  // NUNCA para el TEXTO MULTILÍNEA.
+  return s.replace(/\(([^)]*CONECTAR CON[^)]*)\)/gi, "");
 }
+
 function parseLinkTarget(s) {
   const m = s.match(/\(\s*CONECTAR\s+CON\s+OPCION\s+(\d+)\s+DE\s+HEADER\s+(\d+)\s*\)/i);
   if (!m) return null;
   return { x: Number(m[1]), y: Number(m[2]) };
 }
+
 function parseDefaultFromHeaderTitle(titleRaw) {
   const m = titleRaw.match(/\(\s*DEFAULT\s*=>>>\s*([\s\S]*?)\s*<<<\s*\)\s*$/i);
-  if (!m) return { title: titleRaw.trim(), defText: null };
+  if (!m) return { title: titleRaw, defText: null };
   const defText = m[1];
-  const title = titleRaw.replace(m[0], "").trim();
+  const title = titleRaw.replace(m[0], "");
   return { title, defText };
 }
+
 function makeHeaderTag(n) {
   const level = Math.min(Math.max(n, 1), 6);
   return "h" + level;
@@ -88,9 +101,11 @@ function makeHeaderTag(n) {
    OPTION PARSER (una línea)
    ========================= */
 function parseOptionLineSingleLine(lineRaw) {
-  const lineWithLink = lineRaw.trimEnd();
-  const link = parseLinkTarget(lineWithLink);
-  let cleaned = stripConnectParens(lineWithLink);
+  const link = parseLinkTarget(lineRaw);
+  let cleaned = stripConnectParens_onlyForNormalText(lineRaw);
+
+  // Mantener texto, solo recortar extremos para label
+  cleaned = cleaned.replace(/^\s+/,"").replace(/\s+$/,"");
 
   // Dropdown ***
   let dropdown = null;
@@ -103,8 +118,8 @@ function parseOptionLineSingleLine(lineRaw) {
     const re = /(\d+)\.([^]+?)(?=(?:\s+\d+\.)|$)/g;
     let mm;
     while ((mm = re.exec(after)) !== null) {
-      const val = mm[2].trim();
-      if (val) opts.push(val);
+      const val = mm[2];
+      if (val != null) opts.push(val.trim());
     }
 
     dropdown = { before, options: opts, after: "" };
@@ -126,17 +141,15 @@ function parseOptionLineSingleLine(lineRaw) {
     labelParts = { type: "text", before: textInput.before, after: textInput.after };
     narrativeParts = { type: "text", before: textInput.before, after: textInput.after };
   } else {
-    labelParts = { type: "plain", text: cleaned.trim() };
-    narrativeParts = { type: "plain", text: cleaned.trim() };
+    labelParts = { type: "plain", text: cleaned };
+    narrativeParts = { type: "plain", text: cleaned };
   }
 
   return { raw: lineRaw, link, labelParts, narrativeParts, multilineText: null };
 }
 
 /* =========================
-   HEADER PARSER (multilínea real)
-   - Opciones con =>>> ... <<< pueden abarcar varias líneas
-   - Si header trae =>>> ... <<< sin "DEFAULT", se usa como DEFAULT implícito
+   HEADER PARSER (multilínea real, preserva espacios)
    ========================= */
 function parseHeaders(raw) {
   const lines = raw.split(/\r?\n/);
@@ -151,22 +164,24 @@ function parseHeaders(raw) {
     const headerMatch = line.match(/^\s*header\s+(\d+)\s*:\s*(.*)\s*$/i);
     if (headerMatch) {
       const n = Number(headerMatch[1]);
-      const titleRaw = headerMatch[2] || "";
+      const titleRaw = headerMatch[2] ?? "";
 
       const { title: titleNoDefault, defText: defFormal } = parseDefaultFromHeaderTitle(titleRaw);
 
-      // DEFAULT implícito en la línea del header (=>>> ... <<<)
+      // DEFAULT implícito si en el header aparece =>>> ... <<<
       let titleDisplay = titleNoDefault;
       let defImplicit = null;
 
       const start = titleDisplay.indexOf("=>>>");
       const end = titleDisplay.indexOf("<<<");
       if (start !== -1 && end !== -1 && end > start) {
-        defImplicit = titleDisplay.slice(start + 4, end);
-        titleDisplay = (titleDisplay.slice(0, start) + titleDisplay.slice(end + 3)).trim();
+        defImplicit = titleDisplay.slice(start + 4, end); // puede tener espacios (pero aquí suele ser 1 línea)
+        titleDisplay = (titleDisplay.slice(0, start) + titleDisplay.slice(end + 3));
       }
 
-      titleDisplay = titleDisplay.replace(/\s*\/\/\s*$/, "").trim();
+      // Quitar " //" al final (si existe) solo del título visible
+      titleDisplay = titleDisplay.replace(/\s*\/\/\s*$/, "");
+      titleDisplay = titleDisplay.replace(/^\s+/,"").replace(/\s+$/,"");
 
       current = {
         n,
@@ -179,49 +194,52 @@ function parseHeaders(raw) {
       continue;
     }
 
-    if (!current || line.trim() === "") {
-      i++;
-      continue;
-    }
+    if (!current) { i++; continue; }
 
-    // Opciones con =>>> ... <<< (pueden ser varias líneas)
+    // Línea vacía o solo espacios fuera de multilínea: NO es opción
+    if (line.trim() === "") { i++; continue; }
+
+    // Opción con =>>> ... <<< (puede abarcar varias líneas con espacios y líneas vacías)
     const idxStart = line.indexOf("=>>>");
     if (idxStart !== -1) {
-      // Caso cierre en misma línea
       const idxEndSame = line.indexOf("<<<", idxStart + 4);
+
+      // Caso cierre en misma línea
       if (idxEndSame !== -1) {
         const before = line.slice(0, idxStart);
-        const inner = line.slice(idxStart + 4, idxEndSame);
+        const inner = line.slice(idxStart + 4, idxEndSame); // EXACTO
         const after = line.slice(idxEndSame + 3);
 
-        const base = parseOptionLineSingleLine((before + after).trim());
-        base.multilineText = inner; // tal cual
+        const base = parseOptionLineSingleLine(before + after);
+        base.multilineText = inner; // EXACTO
         current.options.push(base);
         i++;
         continue;
       }
 
-      // Caso cierre en línea futura
+      // Caso cierre en otra línea (preservar todo tal cual)
       const before = line.slice(0, idxStart);
-      let collected = line.slice(idxStart + 4);
-      collected += "\n";
+      const collectedLines = [];
+
+      // Primera parte después de =>>> (puede ser "  " o vacío)
+      collectedLines.push(line.slice(idxStart + 4));
 
       i++;
       while (i < lines.length) {
         const l2 = lines[i];
         const idxEnd = l2.indexOf("<<<");
         if (idxEnd !== -1) {
-          collected += l2.slice(0, idxEnd);
-          i++; // consume línea que cierra
+          collectedLines.push(l2.slice(0, idxEnd)); // puede ser vacío/espacios
+          i++; // consume cierre
           break;
         } else {
-          collected += l2 + "\n";
+          collectedLines.push(l2); // incluye líneas vacías y con espacios
           i++;
         }
       }
 
-      const base = parseOptionLineSingleLine(before.trim());
-      base.multilineText = collected; // tal cual
+      const base = parseOptionLineSingleLine(before);
+      base.multilineText = collectedLines.join("\n"); // EXACTO (incluye líneas "en blanco" con espacios)
       current.options.push(base);
       continue;
     }
@@ -255,7 +273,6 @@ function render() {
   headersData.forEach(h => {
     const block = document.createElement("div");
     block.className = "header-block";
-    block.dataset.headerN = String(h.n);
 
     const tag = makeHeaderTag(h.n);
     const hdr = document.createElement(tag);
@@ -288,16 +305,19 @@ function render() {
         label.appendChild(document.createTextNode(op.labelParts.before));
         const sel = document.createElement("select");
         sel.id = op.id + "_sel";
+
         const empty = document.createElement("option");
         empty.value = "";
         empty.textContent = "";
         sel.appendChild(empty);
+
         (op.labelParts.options || []).forEach(v => {
           const o = document.createElement("option");
           o.value = v;
           o.textContent = v;
           sel.appendChild(o);
         });
+
         label.appendChild(sel);
         label.appendChild(document.createTextNode(op.labelParts.after || ""));
       }
@@ -340,17 +360,17 @@ function updateNarrativa() {
     // DEFAULT por header
     if (marked.length === 0) {
       if (h.defaultText != null && String(h.defaultText).length > 0) {
-        if (narrativa && !narrativa.endsWith("\n")) narrativa += "\n";
-        narrativa += String(h.defaultText);
-        if (!narrativa.endsWith("\n")) narrativa += "\n";
+        if (narrativa !== "" && !narrativa.endsWith("\n")) narrativa += "\n";
+        // DEFAULT tal cual (sin colapsar)
+        narrativa += String(h.defaultText).replace(/\r/g, "");
       }
       return;
     }
 
-    // Header title (según toggleHeaders)
+    // Header title
     if (includeHeaders) {
       if (h.titleDisplay && h.titleDisplay.trim() !== "") {
-        if (narrativa && !narrativa.endsWith("\n")) narrativa += "\n";
+        if (narrativa !== "" && !narrativa.endsWith("\n")) narrativa += "\n";
         narrativa += h.titleDisplay.trim() + "\n";
       }
     }
@@ -377,18 +397,16 @@ function updateNarrativa() {
       }
 
       if (piece.trim() !== "") {
-        if (narrativa && !narrativa.endsWith("\n")) narrativa += "\n";
+        if (narrativa !== "" && !narrativa.endsWith("\n")) narrativa += "\n";
         narrativa += piece.trim();
-        if (!narrativa.endsWith("\n")) narrativa += "\n";
       }
 
-      // Multilínea =>>> ... <<< (tal cual)
+      // Multilínea =>>> ... <<< (tal cual, preservando líneas vacías y espacios)
       if (op.multilineText != null) {
-        const mt = String(op.multilineText);
+        const mt = String(op.multilineText).replace(/\r/g, "");
         if (mt.length > 0) {
-          if (narrativa && !narrativa.endsWith("\n")) narrativa += "\n";
-          narrativa += mt;
-          if (!narrativa.endsWith("\n")) narrativa += "\n";
+          if (narrativa !== "" && !narrativa.endsWith("\n")) narrativa += "\n";
+          narrativa += mt; // SIN trim, SIN colapsar
         }
       }
     });
