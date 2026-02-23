@@ -19,20 +19,15 @@
       width: 100%;
       height: 240px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      white-space: pre; /* muestra el pegado tal cual */
+      white-space: pre;
     }
-
-    /* CRÍTICO: preservar saltos y ESPACIOS EXACTOS (incluye espacios finales) */
-    #resultado {
+    /* CRÍTICO: preservar saltos y espacios */
+    #resultado{
       white-space: break-spaces;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      border: 1px solid #ddd;
-      padding: 12px;
-      border-radius: 10px;
-      margin-top: 12px;
+      border:1px solid #ddd; padding:12px; border-radius:10px; margin-top:12px;
       tab-size: 4;
     }
-
     button { margin-top: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid #ccc; cursor: pointer; }
     .row { display:flex; gap:10px; flex-wrap: wrap; align-items: center; }
     .hint { font-size: 12px; opacity: .85; margin-top: 6px; }
@@ -53,9 +48,9 @@
     </div>
 
     <div class="hint">
-      Comando de separación: al FINAL de una línea (opción o header) agrega:
-      <b>"/"</b> = deja 1 línea en blanco; <b>"//"</b> = deja 2 líneas en blanco.
-      Estos comandos NO deben mostrarse en labels ni en el título.
+      Al FINAL de una línea puedes usar: <b>/</b> = +1 línea en blanco; <b>//</b> = +2 líneas en blanco.
+      (No se muestra en el label ni en el título.)
+      <br>Además: la narrativa queda con <b>1 línea en blanco entre cada línea</b> (doble espaciado) para separar “PIEL”, “CABEZA Y CUELLO”, etc.
     </div>
 
     <textarea id="rawInput" spellcheck="false"></textarea>
@@ -69,58 +64,55 @@
 let headersData = [];
 
 /* =========================
-   HELPERS: comandos / y //
+   / y // al final de línea
    ========================= */
-// Detecta si una línea termina en " //" o " /" (con espacios opcionales antes)
 function extractSlashGapFromEnd(s) {
-  // gap = 2 si termina en //, gap = 1 si termina en /
-  // Devuelve { text, gap }
   const m = s.match(/^(.*?)(\s*\/\/\s*|\s*\/\s*)$/);
   if (!m) return { text: s, gap: 0 };
   const token = m[2].replace(/\s/g, "");
-  const gap = (token === "//") ? 2 : 1;
-  return { text: m[1], gap };
+  return { text: m[1], gap: (token === "//") ? 2 : 1 };
+}
+
+/* =========================
+   Doble espaciado:
+   1 línea en blanco entre líneas (sin perder espacios)
+   ========================= */
+function doubleSpacePreserve(text) {
+  // NO trim, NO colapsar. Solo convertimos LF -> LF LF.
+  // Preserva líneas vacías y líneas con solo espacios.
+  const t = String(text).replace(/\r/g, "");
+  return t.split("\n").join("\n\n");
 }
 
 function stripConnectParens_onlyForNormalText(s) {
-  // SOLO para texto normal (label/narrativa normal). NUNCA para multilínea.
   return s.replace(/\(([^)]*CONECTAR CON[^)]*)\)/gi, "");
 }
-
 function parseLinkTarget(s) {
   const m = s.match(/\(\s*CONECTAR\s+CON\s+OPCION\s+(\d+)\s+DE\s+HEADER\s+(\d+)\s*\)/i);
   if (!m) return null;
   return { x: Number(m[1]), y: Number(m[2]) };
 }
-
 function parseDefaultFromHeaderTitle(titleRaw) {
   const m = titleRaw.match(/\(\s*DEFAULT\s*=>>>\s*([\s\S]*?)\s*<<<\s*\)\s*$/i);
   if (!m) return { title: titleRaw, defText: null };
-  const defText = m[1]; // NO tocar
-  const title = titleRaw.replace(m[0], "");
-  return { title, defText };
+  return { title: titleRaw.replace(m[0], ""), defText: m[1] };
 }
-
 function makeHeaderTag(n) {
   const level = Math.min(Math.max(n, 1), 6);
   return "h" + level;
 }
 
 /* =========================
-   OPTION PARSER (una línea)
+   Parse opción 1 línea
    ========================= */
 function parseOptionLineSingleLine(lineRaw) {
-  // gap ( / o // ) aplica a la opción (después de agregarse a la narrativa)
   const gapInfo = extractSlashGapFromEnd(lineRaw);
   const lineNoGap = gapInfo.text;
 
   const link = parseLinkTarget(lineNoGap);
   let cleaned = stripConnectParens_onlyForNormalText(lineNoGap);
-
-  // Solo recortar extremos para label
   cleaned = cleaned.replace(/^\s+/,"").replace(/\s+$/,"");
 
-  // Dropdown ***
   let dropdown = null;
   if (cleaned.includes("***")) {
     const idx = cleaned.indexOf("***");
@@ -134,11 +126,9 @@ function parseOptionLineSingleLine(lineRaw) {
       const val = mm[2];
       if (val != null) opts.push(val.trim());
     }
-
     dropdown = { before, options: opts, after: "" };
   }
 
-  // Input **
   let textInput = null;
   if (!dropdown && cleaned.includes("**")) {
     const idx = cleaned.indexOf("**");
@@ -146,7 +136,6 @@ function parseOptionLineSingleLine(lineRaw) {
   }
 
   let labelParts, narrativeParts;
-
   if (dropdown) {
     labelParts = { type: "dropdown", before: dropdown.before, after: dropdown.after, options: dropdown.options };
     narrativeParts = { type: "dropdown", before: dropdown.before, after: dropdown.after };
@@ -162,10 +151,7 @@ function parseOptionLineSingleLine(lineRaw) {
 }
 
 /* =========================
-   HEADER PARSER
-   - Soporta DEFAULT formal (DEFAULT =>>> <<<)
-   - Soporta DEFAULT implícito (=>>> <<<)
-   - Soporta separador al final del header: ...<<< /  o  ...<<< //
+   Parse headers + multilínea
    ========================= */
 function parseHeaders(raw) {
   const lines = raw.replace(/\r/g, "").split("\n");
@@ -182,35 +168,30 @@ function parseHeaders(raw) {
       const n = Number(headerMatch[1]);
       let titleRaw = headerMatch[2] ?? "";
 
-      // 1) detectar slash gap al FINAL DE LA LÍNEA DEL HEADER
-      //    (ej: header 2: PIEL =>>> ... <<< /)
+      // gap al final del header (para cuando se use DEFAULT)
       const gapInfoHeader = extractSlashGapFromEnd(titleRaw);
-      titleRaw = gapInfoHeader.text; // quitamos / o // del título bruto
+      titleRaw = gapInfoHeader.text;
 
-      // 2) DEFAULT formal
       const { title: titleNoDefault, defText: defFormal } = parseDefaultFromHeaderTitle(titleRaw);
 
-      // 3) DEFAULT implícito si aparece =>>> ... <<<
+      // DEFAULT implícito en header: =>>> ... <<<
       let titleDisplay = titleNoDefault;
       let defImplicit = null;
 
       const start = titleDisplay.indexOf("=>>>");
       const end = titleDisplay.indexOf("<<<");
       if (start !== -1 && end !== -1 && end > start) {
-        defImplicit = titleDisplay.slice(start + 4, end); // exacto (suele 1 línea)
+        defImplicit = titleDisplay.slice(start + 4, end);
         titleDisplay = (titleDisplay.slice(0, start) + titleDisplay.slice(end + 3));
       }
 
-      // limpiar solo extremos del título visible
       titleDisplay = titleDisplay.replace(/^\s+/,"").replace(/\s+$/,"");
-      // NOTA: ya NO eliminamos '//' del final como antes, porque ahora '//' es comando válido.
-      // Si quieres un '//' literal al final, escápalo escribiendo: \\/\\/
 
       current = {
         n,
         titleDisplay,
         defaultText: (defFormal != null ? defFormal : defImplicit),
-        defaultGapAfter: gapInfoHeader.gap, // gap aplica cuando se imprime el DEFAULT de este header
+        defaultGapAfter: gapInfoHeader.gap,
         options: []
       };
       headers.push(current);
@@ -219,75 +200,61 @@ function parseHeaders(raw) {
     }
 
     if (!current) { i++; continue; }
-
-    // Línea vacía o solo espacios fuera de multilínea: no es opción
     if (line.trim() === "") { i++; continue; }
 
-    // Opción con =>>> ... <<< (puede abarcar varias líneas; puede terminar con / o // EN LA MISMA LÍNEA de inicio)
-    // Ej: "OPCION =>>> .... <<< /"
     const idxStart = line.indexOf("=>>>");
     if (idxStart !== -1) {
-      // Primero, detectar gap en la línea de inicio (para la opción)
-      const gapInfoLine = extractSlashGapFromEnd(line);
-      const lineNoGap = gapInfoLine.text;
+      // gap puede venir al final de la línea de inicio o de la línea del cierre
+      const gapInfoStartLine = extractSlashGapFromEnd(line);
+      const lineNoGap = gapInfoStartLine.text;
 
-      const idxStart2 = lineNoGap.indexOf("=>>>");
-      const idxEndSame = lineNoGap.indexOf("<<<", idxStart2 + 4);
+      const s2 = lineNoGap.indexOf("=>>>");
+      const endSame = lineNoGap.indexOf("<<<", s2 + 4);
 
-      // Cierre en la misma línea
-      if (idxEndSame !== -1) {
-        const before = lineNoGap.slice(0, idxStart2);
-        const inner = lineNoGap.slice(idxStart2 + 4, idxEndSame); // EXACTO
-        const after = lineNoGap.slice(idxEndSame + 3);
+      if (endSame !== -1) {
+        const before = lineNoGap.slice(0, s2);
+        const inner = lineNoGap.slice(s2 + 4, endSame);
+        const after = lineNoGap.slice(endSame + 3);
 
         const base = parseOptionLineSingleLine(before + after);
-        base.multilineText = inner; // EXACTO
-        base.gapAfter = gapInfoLine.gap; // aplica al final de esta opción
+        base.multilineText = inner;
+        base.gapAfter = gapInfoStartLine.gap || base.gapAfter;
         current.options.push(base);
         i++;
         continue;
       }
 
-      // Cierre en otra línea: capturar TODO tal cual
-      const before = lineNoGap.slice(0, idxStart2);
-      const collectedLines = [];
-
-      collectedLines.push(lineNoGap.slice(idxStart2 + 4)); // puede ser "" o "   "
+      const before = lineNoGap.slice(0, s2);
+      const collected = [];
+      collected.push(lineNoGap.slice(s2 + 4)); // puede ser "  " o ""
 
       i++;
       while (i < lines.length) {
         const l2 = lines[i];
-
-        // Si el cierre <<< viene en una línea que además trae / o // al final,
-        // eso debe aplicarse a la opción.
         const gapInfoCloseLine = extractSlashGapFromEnd(l2);
         const l2NoGap = gapInfoCloseLine.text;
 
         const idxEnd = l2NoGap.indexOf("<<<");
         if (idxEnd !== -1) {
-          collectedLines.push(l2NoGap.slice(0, idxEnd));
+          collected.push(l2NoGap.slice(0, idxEnd));
           const base = parseOptionLineSingleLine(before);
-          base.multilineText = collectedLines.join("\n"); // EXACTO
-          // si el comando de gap estaba en la línea de inicio, prioriza; si no, usa el del cierre
-          base.gapAfter = gapInfoLine.gap || gapInfoCloseLine.gap;
+          base.multilineText = collected.join("\n");
+          base.gapAfter = gapInfoStartLine.gap || gapInfoCloseLine.gap || base.gapAfter;
           current.options.push(base);
-
-          i++; // consume cierre
+          i++;
           break;
         } else {
-          collectedLines.push(l2); // incluye líneas vacías o con espacios
+          collected.push(l2);
           i++;
         }
       }
       continue;
     }
 
-    // Opción normal
     current.options.push(parseOptionLineSingleLine(line));
     i++;
   }
 
-  // IDs obligatorios id="h<Y>_op<X>"
   headers.forEach(h => {
     h.options.forEach((op, idx) => {
       op.optionIndex = idx + 1;
@@ -300,7 +267,7 @@ function parseHeaders(raw) {
 }
 
 /* =========================
-   RENDER
+   Render
    ========================= */
 function render() {
   const form = document.getElementById("formulario");
@@ -312,7 +279,7 @@ function render() {
 
     const tag = makeHeaderTag(h.n);
     const hdr = document.createElement(tag);
-    hdr.textContent = h.titleDisplay; // NO mostrar / ni //
+    hdr.textContent = h.titleDisplay;
     block.appendChild(hdr);
 
     h.options.forEach(op => {
@@ -328,7 +295,7 @@ function render() {
       label.appendChild(document.createTextNode(" "));
 
       if (op.labelParts.type === "plain") {
-        label.appendChild(document.createTextNode(op.labelParts.text)); // / y // ya fueron removidos
+        label.appendChild(document.createTextNode(op.labelParts.text));
       } else if (op.labelParts.type === "text") {
         label.appendChild(document.createTextNode(op.labelParts.before));
         const inp = document.createElement("input");
@@ -363,7 +330,6 @@ function render() {
     form.appendChild(block);
   });
 
-  // Conexiones
   const linkChecks = document.querySelectorAll('input[type="checkbox"][data-link]');
   linkChecks.forEach(cb => {
     cb.addEventListener("change", () => {
@@ -375,9 +341,6 @@ function render() {
   });
 }
 
-/* =========================
-   Cargar/Actualizar
-   ========================= */
 function cargarDesdeTextarea() {
   const raw = document.getElementById("rawInput").value;
   headersData = parseHeaders(raw);
@@ -386,22 +349,23 @@ function cargarDesdeTextarea() {
 }
 
 /* =========================
-   Helper: agregar con gaps (/ y //)
-   gap=1 => 1 línea en blanco (añade 2 saltos en total)
-   gap=2 => 2 líneas en blanco (añade 3 saltos en total)
+   Append con gaps + doble espaciado
    ========================= */
-function appendWithGap(narrativa, text, gap) {
-  // agrega texto tal cual (sin trim), asegurando que no se pegue a lo anterior
-  if (narrativa !== "" && !narrativa.endsWith("\n")) narrativa += "\n";
-  narrativa += text;
+function appendBlock(narr, text, extraBlankLines) {
+  // text se imprime con DOBLE ESPACIADO
+  const doubled = doubleSpacePreserve(text);
 
-  // asegurar fin de línea (para que el "gap" sea visible)
-  if (!narrativa.endsWith("\n")) narrativa += "\n";
+  if (narr !== "" && !narr.endsWith("\n")) narr += "\n";
+  narr += doubled;
 
-  // gap de líneas en blanco
-  if (gap > 0) narrativa += "\n".repeat(gap);
+  if (!narr.endsWith("\n")) narr += "\n";
 
-  return narrativa;
+  // extraBlankLines:
+  // 1 => +1 línea en blanco adicional (ya hay doble espaciado)
+  // 2 => +2 líneas en blanco adicionales
+  if (extraBlankLines > 0) narr += "\n".repeat(extraBlankLines);
+
+  return narr;
 }
 
 /* =========================
@@ -422,16 +386,19 @@ function updateNarrativa() {
     // DEFAULT por header
     if (marked.length === 0) {
       if (h.defaultText != null && String(h.defaultText).length > 0) {
-        // DEFAULT tal cual + aplicar gap del header si tenía / o //
-        narrativa = appendWithGap(narrativa, String(h.defaultText), h.defaultGapAfter || 0);
+        // AHORA: si includeHeaders está activo, sí ponemos el título como separador
+        if (includeHeaders && h.titleDisplay && h.titleDisplay.trim() !== "") {
+          narrativa = appendBlock(narrativa, h.titleDisplay.trim(), 0);
+        }
+        narrativa = appendBlock(narrativa, String(h.defaultText), h.defaultGapAfter || 0);
       }
       return;
     }
 
-    // Header title
+    // Header title normal
     if (includeHeaders) {
       if (h.titleDisplay && h.titleDisplay.trim() !== "") {
-        narrativa = appendWithGap(narrativa, h.titleDisplay.trim(), 0);
+        narrativa = appendBlock(narrativa, h.titleDisplay.trim(), 0);
       }
     }
 
@@ -456,28 +423,23 @@ function updateNarrativa() {
         piece += parts.after || "";
       }
 
-      // 1) texto normal de la opción (si existe)
       if (piece.trim() !== "") {
-        narrativa = appendWithGap(narrativa, piece.trim(), 0);
+        narrativa = appendBlock(narrativa, piece.trim(), 0);
       }
 
-      // 2) multilínea (exacto) + gap si la opción termina en / o //
       if (op.multilineText != null) {
-        const mt = String(op.multilineText); // SIN trim
+        const mt = String(op.multilineText); // sin trim
         if (mt.length > 0) {
-          narrativa = appendWithGap(narrativa, mt, op.gapAfter || 0);
+          narrativa = appendBlock(narrativa, mt, op.gapAfter || 0);
         } else if (op.gapAfter) {
-          // si no hay texto multilínea pero sí gap, aplica gap igualmente
-          narrativa = appendWithGap(narrativa, "", op.gapAfter);
+          narrativa = appendBlock(narrativa, "", op.gapAfter);
         }
       } else if (op.gapAfter) {
-        // opción sin multilínea, pero con / o //
-        narrativa = appendWithGap(narrativa, "", op.gapAfter);
+        narrativa = appendBlock(narrativa, "", op.gapAfter);
       }
     });
   });
 
-  // OJO: aquí sí usamos trim() por tu regla, pero los saltos internos ya se preservaron.
   document.getElementById("resultado").textContent = narrativa.trim();
 }
 
@@ -501,7 +463,7 @@ async function copiarNarrativa() {
 }
 
 /* =========================
-   Precarga con tu ejemplo (incluye /)
+   Precarga tu ejemplo
    ========================= */
 document.getElementById("rawInput").value =
 `header 1:  .
