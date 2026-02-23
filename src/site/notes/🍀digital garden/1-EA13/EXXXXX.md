@@ -15,19 +15,51 @@
     .opt { display: block; margin: 6px 0; }
     .opt input[type="text"] { width: 260px; max-width: 100%; }
     .opt select { max-width: 100%; }
-    #resultado { white-space: pre-wrap; border: 1px solid #ddd; padding: 12px; border-radius: 10px; margin-top: 12px; }
+    textarea {
+      width: 100%;
+      height: 240px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      white-space: pre;
+    }
+
+    /* CRÍTICO: el resultado debe preservar saltos y ESPACIOS EXACTOS */
+    #resultado {
+      white-space: pre-wrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      border: 1px solid #ddd;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 12px;
+      /* MUY IMPORTANTE: preserva espacios finales y múltiples espacios */
+      white-space: break-spaces;
+      tab-size: 4;
+    }
+
     button { margin-top: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid #ccc; cursor: pointer; }
+    .row { display:flex; gap:10px; flex-wrap: wrap; align-items: center; }
+    .hint { font-size: 12px; opacity: .8; margin-top: 6px; }
   </style>
 </head>
 <body>
 
   <div class="topbar">
-    <label class="opt">
-      <input type="checkbox" id="toggleHeaders" checked>
-      Incluir headers en la narrativa
-    </label>
+    <div class="row">
+      <label class="opt" style="margin:0">
+        <input type="checkbox" id="toggleHeaders" checked>
+        Incluir headers en la narrativa
+      </label>
 
-    <button onclick="updateNarrativa()">Generar Narrativa</button>
+      <button onclick="cargarDesdeTextarea()">Cargar/Actualizar Formulario</button>
+      <button onclick="updateNarrativa()">Generar Narrativa</button>
+      <button onclick="copiarNarrativa()">Copiar narrativa</button>
+    </div>
+
+    <div class="hint">
+      Pega tu texto aquí. Se preservan líneas vacías, líneas con solo espacios y dobles saltos.
+      (Si el destino donde pegas colapsa saltos de línea, usa “Copiar narrativa”.)
+    </div>
+
+    <textarea id="rawInput" spellcheck="false"></textarea>
   </div>
 
   <div id="formulario"></div>
@@ -35,63 +67,38 @@
   <p id="resultado"></p>
 
 <script>
-/* =========================
-   RAW: TU TEXTO (PEGADO)
-   ========================= */
-const RAW = `header 1:  .
-NO PATOLOGICO =>>>  
- PACIENTE EN BUENAS CONDICIONES GENERALES, ALERTA, CONCIENTE, AFEBRIL, HIDRATADO
-- PIEL: SIN LESIONES.
-- NORMOCEFALO, CONJUNTIVAS NORMOCROMICAS, ESCLERAS, ANICTERICAS, ISOCORIA NORMOREACTIVA, MOVIMIENTOS OCULARES NORMALES; MUCOSA NASAL NORMAL; MUCOSA ORAL HUMEDA, OROFARINGE LIMPIA; OTOSCOPIA BILATERAL NORMAL.
-- CUELLO: MOVIL, NO DOLOROSO, NO SE PALPAN MASAS NI ADENOMEGALIAS.
-- TORAX: SIMETRICO, EXPANSIBILIDAD NORMAL, SIN RETRACCIONES, PERCUSION NORMAL.RUIDOS CARDIACOS RITMICOS, NO AUSCULTO SOPLOS; MURMULLO VESICULAR CONSERVADO, NO SE AUSCULTAN AGREGADOS.
-- ABDOMEN BLANDO, NO DOLOROSO A LA PALPACION, PERISTALSIS PRESENTE, NO SE PALPAN MASAS NI VISCEROMEGALIAS, SIN SIGNOS DE IRRITACION PERITONEAL.
-- GENITOURINARIO NO EVALUADO. 
-- EXTREMIDADES SIMETRICAS, SIN EDEMAS, MOVILES, PERFUSION DISTAL MENOR A 2 SEGUNDOS, PULSOS DISTALES PRESENTES.
-- OSTEOMUCULAR: SIN DEFORMIDADES, ARCOS DE MOVILIDAD CONSERVADOS.
-- NEUROLOGICO: SIN DEFICIT MOTOR NI SENSITIVO APARENTE, FUERZA 5/5 EN 4 EXTREMIDADES, SENSIBILIDAD CONSERVADA, NO SIGNOS MENINGEOS, NO FOCALIZACIÓN
-<<<
-PATOLOGICO
-header 2:  PIEL =>>> PIEL: SIN LESIONES<<< //
-PETEQUIAS EN **
-MACULAS ERITEMATOSAS EN ** 
-header 3:  CABEZA Y CUELLO: =>>>NORMOCEFALO, CONJUNTIVAS NORMOCROMICAS, ESCLERAS ANICTERICAS, ISOCORIA NORMOREACTIVA, MOVIMIENTOS OCULARES NORMALES; MUCOSA NASAL NORMAL; MUCOSA ORAL HUMEDA, OROFARINGE LIMPIA; OTOSCOPIA BILATERAL NORMAL.<<<
-ESCLERAS ICTERICAS
-MUCOSA ORAL SECA SIN LESIONES
-CONGESTIÓN CONJUNTIVAL SIN SECRECIÓN PURULENTA O MUCOSA
-DOLOR EN ANGULO MANDIBULAR **`;
+/*
+  PUNTO CLAVE:
+  - El problema de "sin espacio entre líneas" casi siempre es:
+    1) el texto se normaliza al meterlo en JS (template literal) o
+    2) el lugar donde COPIAS/PEGAS la narrativa colapsa saltos (WhatsApp, algunos EMR, etc.)
+  - Solución:
+    - Leer del <textarea> (no template literal)
+    - Mostrar con white-space: break-spaces
+    - Copiar con navigator.clipboard como texto plano
+*/
 
-/* =========================================================
-   NOTA CRÍTICA (tu caso real):
-   - El bloque =>>> ... <<< puede incluir líneas vacías o con espacios.
-   - Para preservarlo EXACTO:
-     * Capturamos por líneas sin usar trim() dentro del multilínea.
-     * En el resultado, usamos white-space: pre-wrap.
-   ========================================================= */
+let headersData = [];
 
 /* =========================
    HELPERS
    ========================= */
 function stripConnectParens_onlyForNormalText(s) {
-  // SOLO se usa para el texto normal (label/narrativa normal).
-  // NUNCA para el TEXTO MULTILÍNEA.
+  // SOLO para texto normal (label/narrativa normal). NUNCA para multilínea.
   return s.replace(/\(([^)]*CONECTAR CON[^)]*)\)/gi, "");
 }
-
 function parseLinkTarget(s) {
   const m = s.match(/\(\s*CONECTAR\s+CON\s+OPCION\s+(\d+)\s+DE\s+HEADER\s+(\d+)\s*\)/i);
   if (!m) return null;
   return { x: Number(m[1]), y: Number(m[2]) };
 }
-
 function parseDefaultFromHeaderTitle(titleRaw) {
   const m = titleRaw.match(/\(\s*DEFAULT\s*=>>>\s*([\s\S]*?)\s*<<<\s*\)\s*$/i);
   if (!m) return { title: titleRaw, defText: null };
-  const defText = m[1];
+  const defText = m[1]; // NO tocar (puede tener saltos y espacios)
   const title = titleRaw.replace(m[0], "");
   return { title, defText };
 }
-
 function makeHeaderTag(n) {
   const level = Math.min(Math.max(n, 1), 6);
   return "h" + level;
@@ -104,7 +111,7 @@ function parseOptionLineSingleLine(lineRaw) {
   const link = parseLinkTarget(lineRaw);
   let cleaned = stripConnectParens_onlyForNormalText(lineRaw);
 
-  // Mantener texto, solo recortar extremos para label
+  // Solo recortar extremos para label (sin colapsar internos)
   cleaned = cleaned.replace(/^\s+/,"").replace(/\s+$/,"");
 
   // Dropdown ***
@@ -149,10 +156,11 @@ function parseOptionLineSingleLine(lineRaw) {
 }
 
 /* =========================
-   HEADER PARSER (multilínea real, preserva espacios)
+   HEADER PARSER (multilínea real + preserva espacios)
    ========================= */
 function parseHeaders(raw) {
-  const lines = raw.split(/\r?\n/);
+  // CRÍTICO: conservar tal cual. Solo normalizamos CRLF a LF.
+  const lines = raw.replace(/\r/g, "").split("\n");
 
   const headers = [];
   let current = null;
@@ -175,11 +183,11 @@ function parseHeaders(raw) {
       const start = titleDisplay.indexOf("=>>>");
       const end = titleDisplay.indexOf("<<<");
       if (start !== -1 && end !== -1 && end > start) {
-        defImplicit = titleDisplay.slice(start + 4, end); // puede tener espacios (pero aquí suele ser 1 línea)
+        defImplicit = titleDisplay.slice(start + 4, end); // exacto
         titleDisplay = (titleDisplay.slice(0, start) + titleDisplay.slice(end + 3));
       }
 
-      // Quitar " //" al final (si existe) solo del título visible
+      // limpiar solo extremos del título visible
       titleDisplay = titleDisplay.replace(/\s*\/\/\s*$/, "");
       titleDisplay = titleDisplay.replace(/^\s+/,"").replace(/\s+$/,"");
 
@@ -196,7 +204,7 @@ function parseHeaders(raw) {
 
     if (!current) { i++; continue; }
 
-    // Línea vacía o solo espacios fuera de multilínea: NO es opción
+    // Línea vacía o solo espacios fuera de multilínea: no es opción
     if (line.trim() === "") { i++; continue; }
 
     // Opción con =>>> ... <<< (puede abarcar varias líneas con espacios y líneas vacías)
@@ -204,7 +212,7 @@ function parseHeaders(raw) {
     if (idxStart !== -1) {
       const idxEndSame = line.indexOf("<<<", idxStart + 4);
 
-      // Caso cierre en misma línea
+      // Cierre en la misma línea
       if (idxEndSame !== -1) {
         const before = line.slice(0, idxStart);
         const inner = line.slice(idxStart + 4, idxEndSame); // EXACTO
@@ -217,11 +225,11 @@ function parseHeaders(raw) {
         continue;
       }
 
-      // Caso cierre en otra línea (preservar todo tal cual)
+      // Cierre en otra línea: capturar TODO tal cual (incluye líneas vacías y con espacios)
       const before = line.slice(0, idxStart);
       const collectedLines = [];
 
-      // Primera parte después de =>>> (puede ser "  " o vacío)
+      // Primera línea del bloque (después de =>>>), puede ser "" o "   " y debe preservarse
       collectedLines.push(line.slice(idxStart + 4));
 
       i++;
@@ -229,17 +237,17 @@ function parseHeaders(raw) {
         const l2 = lines[i];
         const idxEnd = l2.indexOf("<<<");
         if (idxEnd !== -1) {
-          collectedLines.push(l2.slice(0, idxEnd)); // puede ser vacío/espacios
-          i++; // consume cierre
+          collectedLines.push(l2.slice(0, idxEnd)); // puede ser "" o "   "
+          i++; // consume línea cierre
           break;
         } else {
-          collectedLines.push(l2); // incluye líneas vacías y con espacios
+          collectedLines.push(l2); // incluye líneas vacías o con espacios
           i++;
         }
       }
 
       const base = parseOptionLineSingleLine(before);
-      base.multilineText = collectedLines.join("\n"); // EXACTO (incluye líneas "en blanco" con espacios)
+      base.multilineText = collectedLines.join("\n"); // EXACTO
       current.options.push(base);
       continue;
     }
@@ -264,10 +272,8 @@ function parseHeaders(raw) {
 /* =========================
    RENDER
    ========================= */
-const headersData = parseHeaders(RAW);
-const form = document.getElementById("formulario");
-
 function render() {
+  const form = document.getElementById("formulario");
   form.innerHTML = "";
 
   headersData.forEach(h => {
@@ -286,7 +292,6 @@ function render() {
       const cb = document.createElement("input");
       cb.type = "checkbox";
       cb.id = op.id;
-
       if (op.linkTargetId) cb.setAttribute("data-link", op.linkTargetId);
 
       label.appendChild(cb);
@@ -340,7 +345,15 @@ function render() {
   });
 }
 
-render();
+/* =========================
+   Cargar/Actualizar
+   ========================= */
+function cargarDesdeTextarea() {
+  const raw = document.getElementById("rawInput").value;
+  headersData = parseHeaders(raw);
+  render();
+  document.getElementById("resultado").textContent = "";
+}
 
 /* =========================
    updateNarrativa (OBLIGATORIO)
@@ -361,8 +374,7 @@ function updateNarrativa() {
     if (marked.length === 0) {
       if (h.defaultText != null && String(h.defaultText).length > 0) {
         if (narrativa !== "" && !narrativa.endsWith("\n")) narrativa += "\n";
-        // DEFAULT tal cual (sin colapsar)
-        narrativa += String(h.defaultText).replace(/\r/g, "");
+        narrativa += String(h.defaultText); // tal cual
       }
       return;
     }
@@ -401,12 +413,13 @@ function updateNarrativa() {
         narrativa += piece.trim();
       }
 
-      // Multilínea =>>> ... <<< (tal cual, preservando líneas vacías y espacios)
+      // Multilínea =>>> ... <<< (EXACTO)
       if (op.multilineText != null) {
-        const mt = String(op.multilineText).replace(/\r/g, "");
+        const mt = String(op.multilineText); // SIN trim
+        // OJO: mt puede empezar con espacios o líneas vacías, eso es válido.
         if (mt.length > 0) {
           if (narrativa !== "" && !narrativa.endsWith("\n")) narrativa += "\n";
-          narrativa += mt; // SIN trim, SIN colapsar
+          narrativa += mt; // EXACTO
         }
       }
     });
@@ -414,6 +427,55 @@ function updateNarrativa() {
 
   document.getElementById("resultado").textContent = narrativa.trim();
 }
+
+/* =========================
+   Copiar narrativa (para evitar apps que colapsan saltos al copiar manual)
+   ========================= */
+async function copiarNarrativa() {
+  const txt = document.getElementById("resultado").textContent;
+  try {
+    await navigator.clipboard.writeText(txt);
+    alert("Narrativa copiada.");
+  } catch (e) {
+    // fallback
+    const ta = document.createElement("textarea");
+    ta.value = txt;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    alert("Narrativa copiada.");
+  }
+}
+
+/* =========================
+   Precarga tu ejemplo en el textarea (NO template literal RAW)
+   ========================= */
+document.getElementById("rawInput").value =
+`header 1:  .
+NO PATOLOGICO =>>>  
+ PACIENTE EN BUENAS CONDICIONES GENERALES, ALERTA, CONCIENTE, AFEBRIL, HIDRATADO
+- PIEL: SIN LESIONES.
+- NORMOCEFALO, CONJUNTIVAS NORMOCROMICAS, ESCLERAS, ANICTERICAS, ISOCORIA NORMOREACTIVA, MOVIMIENTOS OCULARES NORMALES; MUCOSA NASAL NORMAL; MUCOSA ORAL HUMEDA, OROFARINGE LIMPIA; OTOSCOPIA BILATERAL NORMAL.
+- CUELLO: MOVIL, NO DOLOROSO, NO SE PALPAN MASAS NI ADENOMEGALIAS.
+- TORAX: SIMETRICO, EXPANSIBILIDAD NORMAL, SIN RETRACCIONES, PERCUSION NORMAL.RUIDOS CARDIACOS RITMICOS, NO AUSCULTO SOPLOS; MURMULLO VESICULAR CONSERVADO, NO SE AUSCULTAN AGREGADOS.
+- ABDOMEN BLANDO, NO DOLOROSO A LA PALPACION, PERISTALSIS PRESENTE, NO SE PALPAN MASAS NI VISCEROMEGALIAS, SIN SIGNOS DE IRRITACION PERITONEAL.
+- GENITOURINARIO NO EVALUADO. 
+- EXTREMIDADES SIMETRICAS, SIN EDEMAS, MOVILES, PERFUSION DISTAL MENOR A 2 SEGUNDOS, PULSOS DISTALES PRESENTES.
+- OSTEOMUCULAR: SIN DEFORMIDADES, ARCOS DE MOVILIDAD CONSERVADOS.
+- NEUROLOGICO: SIN DEFICIT MOTOR NI SENSITIVO APARENTE, FUERZA 5/5 EN 4 EXTREMIDADES, SENSIBILIDAD CONSERVADA, NO SIGNOS MENINGEOS, NO FOCALIZACIÓN
+<<<
+PATOLOGICO
+header 2:  PIEL =>>> PIEL: SIN LESIONES<<< //
+PETEQUIAS EN **
+MACULAS ERITEMATOSAS EN ** 
+header 3:  CABEZA Y CUELLO: =>>>NORMOCEFALO, CONJUNTIVAS NORMOCROMICAS, ESCLERAS ANICTERICAS, ISOCORIA NORMOREACTIVA, MOVIMIENTOS OCULARES NORMALES; MUCOSA NASAL NORMAL; MUCOSA ORAL HUMEDA, OROFARINGE LIMPIA; OTOSCOPIA BILATERAL NORMAL.<<<
+ESCLERAS ICTERICAS
+MUCOSA ORAL SECA SIN LESIONES
+CONGESTIÓN CONJUNTIVAL SIN SECRECIÓN PURULENTA O MUCOSA
+DOLOR EN ANGULO MANDIBULAR **`;
+
+cargarDesdeTextarea();
 </script>
 
 </body>
