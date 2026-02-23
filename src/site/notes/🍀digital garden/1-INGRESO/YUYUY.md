@@ -39,11 +39,11 @@
   <div class="grupo">
     <label>
       <input type="checkbox" id="h1_op1" onchange="handleLink(this)">
-      PACIENTE MASCULINO DE <input type="text" id="h1_op1_txt">ESCRIBIR AÑOS
+      PACIENTE MASCULINO DE <input type="text" id="h1_op1_txt"> AÑOS
     </label>
     <label>
       <input type="checkbox" id="h1_op2" onchange="handleLink(this)">
-      PACIENTE FEMENINA DE <input type="text" id="h1_op2_txt">ESCRIBIR AÑOS
+      PACIENTE FEMENINA DE <input type="text" id="h1_op2_txt"> AÑOS
     </label>
   </div>
 
