@@ -9,25 +9,43 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Plan de Examen Físico</title>
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.35;margin:16px;max-width:900px}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.35;
+      margin:16px;
+      max-width:1100px;
+    }
     h2{margin:18px 0 8px}
     .opciones{margin:6px 0 14px 0;padding-left:8px;border-left:2px solid #ddd}
     label{display:block;margin:6px 0;cursor:pointer}
     .child{margin-left:18px;padding-left:10px;border-left:2px dashed #ddd}
     .hidden{display:none}
-    input[type="text"]{margin:0 6px;min-width:220px}
+    input[type="text"]{margin:0 6px;min-width:260px}
     select{margin:0 6px}
-    #resultado{white-space:pre-wrap;border:1px solid #ddd;padding:10px;border-radius:8px;margin-top:10px}
+    #resultado{
+      display:block;
+      width:100%;
+      max-width:1100px;
+      min-height:240px;
+      white-space:pre-wrap;     /* RESPETA SALTOS DE LÍNEA */
+      overflow-wrap:anywhere;   /* EVITA QUE SE “SALGA” */
+      word-break:break-word;
+      border:1px solid #ddd;
+      padding:14px;
+      border-radius:10px;
+      margin-top:12px;
+      font-size:16px;
+      line-height:1.45;
+      background:#fafafa;
+      color:#111;
+    }
   </style>
 </head>
 <body>
 
-  <!-- header 2: TENDENCIAS: (DEFAULT =>>> - TENDENCIAS: (TEXTO PREDETERMINADO) <<<) // -->
   <h2>TENDENCIAS:</h2>
-  <div class="opciones" data-header-index="1" data-default="true">
-    <div class="hidden" data-default-text>
-- TENDENCIAS: (TEXTO PREDETERMINADO)
-    </div>
+  <div class="opciones" data-header-index="1">
+    <div class="hidden" data-default-text>- TENDENCIAS: (TEXTO PREDETERMINADO)</div>
 
     <label>
       <input type="checkbox" id="h1_op1" data-skip="1" data-show="#h1_children" onchange="toggleChildren(this); syncLinks(this)" />
@@ -42,12 +60,9 @@
     </div>
   </div>
 
-  <!-- header 2: PIEL: (DEFAULT =>>> - PIEL: (TEXTO PREDETERMINADO) <<<) // -->
   <h2>PIEL:</h2>
-  <div class="opciones" data-header-index="2" data-default="true">
-    <div class="hidden" data-default-text>
-- PIEL: (TEXTO PREDETERMINADO)
-    </div>
+  <div class="opciones" data-header-index="2">
+    <div class="hidden" data-default-text>- PIEL: (TEXTO PREDETERMINADO)</div>
 
     <label>
       <input type="checkbox" id="h2_op1" data-skip="1" data-show="#h2_children" onchange="toggleChildren(this); syncLinks(this)" />
@@ -62,12 +77,9 @@
     </div>
   </div>
 
-  <!-- header 2: CABEZA: (DEFAULT =>>> - CABEZA: (TEXTO PREDETERMINADO) <<<) // -->
   <h2>CABEZA:</h2>
-  <div class="opciones" data-header-index="3" data-default="true">
-    <div class="hidden" data-default-text>
-- CABEZA: (TEXTO PREDETERMINADO)
-    </div>
+  <div class="opciones" data-header-index="3">
+    <div class="hidden" data-default-text>- CABEZA: (TEXTO PREDETERMINADO)</div>
 
     <label>
       <input type="checkbox" id="h3_op1" data-skip="1" data-show="#h3_children" onchange="toggleChildren(this); syncLinks(this)" />
@@ -81,12 +93,9 @@
     </div>
   </div>
 
-  <!-- header 2: CAVIDAD ORAL: (DEFAULT =>>> - CAVIDAD ORAL: (TEXTO PREDETERMINADO) <<<) // -->
   <h2>CAVIDAD ORAL:</h2>
-  <div class="opciones" data-header-index="4" data-default="true">
-    <div class="hidden" data-default-text>
-- CAVIDAD ORAL: (TEXTO PREDETERMINADO)
-    </div>
+  <div class="opciones" data-header-index="4">
+    <div class="hidden" data-default-text>- CAVIDAD ORAL: (TEXTO PREDETERMINADO)</div>
 
     <label>
       <input type="checkbox" id="h4_op1" data-skip="1" data-show="#h4_children" onchange="toggleChildren(this); syncLinks(this)" />
@@ -100,12 +109,9 @@
     </div>
   </div>
 
-  <!-- header 2: CUELLO: (DEFAULT =>>> - CUELLO: (TEXTO PREDETERMINADO) <<<) // -->
   <h2>CUELLO:</h2>
-  <div class="opciones" data-header-index="5" data-default="true">
-    <div class="hidden" data-default-text>
-- CUELLO: (TEXTO PREDETERMINADO)
-    </div>
+  <div class="opciones" data-header-index="5">
+    <div class="hidden" data-default-text>- CUELLO: (TEXTO PREDETERMINADO)</div>
 
     <label>
       <input type="checkbox" id="h5_op1" data-skip="1" data-show="#h5_children" onchange="toggleChildren(this); syncLinks(this)" />
@@ -119,12 +125,9 @@
     </div>
   </div>
 
-  <!-- header 2: TORAX: (DEFAULT =>>> - TORAX: (TEXTO PREDETERMINADO) <<<) // -->
   <h2>TORAX:</h2>
-  <div class="opciones" data-header-index="6" data-default="true">
-    <div class="hidden" data-default-text>
-- TORAX: (TEXTO PREDETERMINADO)
-    </div>
+  <div class="opciones" data-header-index="6">
+    <div class="hidden" data-default-text>- TORAX: (TEXTO PREDETERMINADO)</div>
 
     <label>
       <input type="checkbox" id="h6_op1" data-skip="1" data-show="#h6_children" onchange="toggleChildren(this); syncLinks(this)" />
@@ -138,12 +141,9 @@
     </div>
   </div>
 
-  <!-- header 2: ABDOMEN: (DEFAULT =>>> - ABDOMEN: (TEXTO PREDETERMINADO) <<<) // -->
   <h2>ABDOMEN:</h2>
-  <div class="opciones" data-header-index="7" data-default="true">
-    <div class="hidden" data-default-text>
-- ABDOMEN: (TEXTO PREDETERMINADO)
-    </div>
+  <div class="opciones" data-header-index="7">
+    <div class="hidden" data-default-text>- ABDOMEN: (TEXTO PREDETERMINADO)</div>
 
     <label>
       <input type="checkbox" id="h7_op1" data-skip="1" data-show="#h7_children" onchange="toggleChildren(this); syncLinks(this)" />
@@ -158,12 +158,9 @@
     </div>
   </div>
 
-  <!-- header 2: OSTEOMUSCULAR: (DEFAULT =>>> - OSTEOMUSCULAR: (TEXTO PREDETERMINADO) <<<) // -->
   <h2>OSTEOMUSCULAR:</h2>
-  <div class="opciones" data-header-index="8" data-default="true">
-    <div class="hidden" data-default-text>
-- OSTEOMUSCULAR: (TEXTO PREDETERMINADO)
-    </div>
+  <div class="opciones" data-header-index="8">
+    <div class="hidden" data-default-text>- OSTEOMUSCULAR: (TEXTO PREDETERMINADO)</div>
 
     <label>
       <input type="checkbox" id="h8_op1" data-skip="1" data-show="#h8_children" onchange="toggleChildren(this); syncLinks(this)" />
@@ -214,12 +211,9 @@
     </div>
   </div>
 
-  <!-- header 2: NEUROLÓGICO: (DEFAULT =>>> - NEUROLÓGICO: (TEXTO PREDETERMINADO) <<<) // -->
   <h2>NEUROLÓGICO:</h2>
-  <div class="opciones" data-header-index="9" data-default="true">
-    <div class="hidden" data-default-text>
-- NEUROLÓGICO: (TEXTO PREDETERMINADO)
-    </div>
+  <div class="opciones" data-header-index="9">
+    <div class="hidden" data-default-text>- NEUROLÓGICO: (TEXTO PREDETERMINADO)</div>
 
     <label>
       <input type="checkbox" id="h9_op1" data-skip="1" data-show="#h9_children" onchange="toggleChildren(this); syncLinks(this)" />
@@ -260,18 +254,18 @@
     labels.forEach(label => {
       const cb = label.querySelector('input[type="checkbox"]');
       if(!cb) return;
-
-      let raw = label.textContent.replace(/\s+/g, " ").trim();
       if(label.getAttribute("data-built") === "1") return;
 
-      let multiline = null;
+      let raw = label.textContent.replace(/\s+/g, " ").trim();
+
+      // MULTILÍNEA =>>> <<<
       const mMulti = raw.match(/=>>>([\s\S]*?)<<</);
       if(mMulti){
-        multiline = mMulti[1];
+        cb.setAttribute("data-multiline", mMulti[1]);
         raw = raw.replace(/=>>>([\s\S]*?)<<</, "").trim();
-        cb.setAttribute("data-multiline", multiline);
       }
 
+      // PARÉNTESIS CONECTAR CON
       const parens = [...raw.matchAll(/\(([^)]*)\)/g)];
       parens.forEach(p => {
         const inside = p[1];
@@ -279,13 +273,12 @@
           raw = raw.replace(p[0], "").trim();
           const mm = inside.match(/CONECTAR CON\s+OPCION\s+(\d+)\s+DE\s+HEADER\s+(\d+)/i);
           if(mm){
-            const X = mm[1];
-            const Y = mm[2];
-            cb.setAttribute("data-link", "#h" + Y + "_op" + X);
+            cb.setAttribute("data-link", "#h" + mm[2] + "_op" + mm[1]);
           }
         }
       });
 
+      // DROPDOWN ***
       if(raw.includes("***")){
         const parts = raw.split("***");
         const prefix = parts[0];
@@ -294,13 +287,10 @@
         const opts = [];
         const re = /(\d+)\.([^]+?)(?=(\s+\d+\.)|$)/g;
         let match;
-        while((match = re.exec(rest)) !== null){
-          opts.push(match[2].trim());
-        }
+        while((match = re.exec(rest)) !== null) opts.push(match[2].trim());
 
-        const suffix = "";
         cb.setAttribute("data-prefix", prefix.trimEnd());
-        cb.setAttribute("data-suffix", suffix);
+        cb.setAttribute("data-suffix", "");
 
         const selectEl = document.createElement("select");
         selectEl.setAttribute("data-for", cb.id);
@@ -321,11 +311,11 @@
         label.appendChild(cb);
         label.appendChild(document.createTextNode(" " + prefix.trimEnd() + " "));
         label.appendChild(selectEl);
-        if(suffix) label.appendChild(document.createTextNode(suffix));
         label.setAttribute("data-built", "1");
         return;
       }
 
+      // INPUT **
       if(raw.includes("**")){
         const parts = raw.split("**");
         const prefix = parts[0];
@@ -347,14 +337,7 @@
         return;
       }
 
-      if(mMulti){
-        label.innerHTML = "";
-        label.appendChild(cb);
-        label.appendChild(document.createTextNode(" " + raw));
-        label.setAttribute("data-built", "1");
-        return;
-      }
-
+      // NORMAL
       label.innerHTML = "";
       label.appendChild(cb);
       label.appendChild(document.createTextNode(" " + raw));
@@ -376,15 +359,17 @@
       const headerChecks = h.querySelectorAll('input[type="checkbox"]');
       const markedMeaningful = Array.from(headerChecks).some(cb => cb.checked && cb.getAttribute("data-skip") !== "1");
 
+      // DEFAULT si no hay selección real
       if(!markedMeaningful){
         const defEl = h.querySelector("[data-default-text]");
         if(defEl){
-          const defText = defEl.textContent.replace(/^\n/, "");
-          narrativa += defText;
+          narrativa += defEl.textContent.trim();
+          narrativa += "\n\n";  // <-- ESPACIO ENTRE SECCIONES
         }
         return;
       }
 
+      // Con selección real
       narrativa += "- " + titulo + " ";
 
       headerChecks.forEach(cb => {
@@ -394,7 +379,7 @@
         const ml = cb.getAttribute("data-multiline");
         if(ml !== null && ml !== undefined){
           narrativa += ml;
-          if(!narrativa.endsWith("\n")) narrativa += "\n";
+          narrativa += "\n";   // multilínea ya trae saltos; cerramos línea
           return;
         }
 
@@ -428,7 +413,7 @@
       });
 
       narrativa = narrativa.replace(/[ \t]+$/,"");
-      if(!narrativa.endsWith("\n")) narrativa += "\n";
+      narrativa += "\n\n";     // <-- ESPACIO ENTRE SECCIONES
     });
 
     document.getElementById("resultado").textContent = narrativa.trim();
