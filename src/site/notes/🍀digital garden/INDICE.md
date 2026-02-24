@@ -5,7 +5,7 @@
 Calculo Dosis Pediátrica: [[🍀digital garden/CALC/dosis ped\|dosis ped]]
 
 # ENFERMEDAD ACTUAL
-- [[EA GENERAL ADULT\|EA GENERAL ADULT]]
+- 
 - [[2ZZ-TROPICALES/DENGUE\|DENGUE]]
 	- [[🍀digital garden/DENGUE COMP/DENGUEOR\|DENGUEOR]]
 
