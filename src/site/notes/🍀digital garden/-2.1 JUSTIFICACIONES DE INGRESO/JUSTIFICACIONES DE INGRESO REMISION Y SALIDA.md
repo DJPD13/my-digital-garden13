@@ -6,7 +6,7 @@
 INGRESO
 - Paciente sintomático a pesar del tratamiento instaurado.
 - Necesidad de oxígeno suplementario para mantener una SpO2 superior al 92%, o al 95% si es una paciente embarazada o en caso de insuficiencia cardíaca.
-- NEUMONIA PSI lll o CURB2
+- NEUMONIA PSI lll o CURB65 ll
 - ! NO USAR SEDANTES EN ASMA
 REMISIÓN
 - Alteración del estado de conciencia.
