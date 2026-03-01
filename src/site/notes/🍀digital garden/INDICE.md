@@ -2,11 +2,11 @@
 {"dg-publish":true,"dg-home":true,"permalink":"/digital-garden/indice/","tags":["gardenEntry"],"dgPassFrontmatter":true}
 ---
 
-Calculo Dosis Pediátrica: [[🍀digital garden/CALC/dosis ped\|dosis ped]]
+Calculo Dosis Pediátrica: [[🍀digital garden/CALCULOS/dosis ped\|dosis ped]]
 
 # ENFERMEDAD ACTUAL
 - 
-- [[2ZZ-TROPICALES/DENGUE\|DENGUE]]
+- [[1z-MEDICINA/2ZZ-TROPICALES/DENGUE\|DENGUE]]
 	- [[🍀digital garden/DENGUE COMP/DENGUEOR\|DENGUEOR]]
 
 # Materna

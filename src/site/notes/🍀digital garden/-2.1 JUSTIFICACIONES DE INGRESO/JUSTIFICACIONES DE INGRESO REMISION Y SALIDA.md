@@ -7,7 +7,12 @@ INGRESO
 - Paciente sintomático a pesar del tratamiento instaurado.
 - Necesidad de oxígeno suplementario para mantener una SpO2 superior al 92%, o al 95% si es una paciente embarazada o en caso de insuficiencia cardíaca.
 - NEUMONIA PSI lll o CURB65 ll
-- ! NO USAR SEDANTES EN ASMA
+- BRONQUIOLITIS 
+	- Wood-Downes <4 PUNTOS
+- CRUP
+	- WESTLEY 5
+- ASMA
+	- ! NO USAR SEDANTES EN ASMA
 REMISIÓN
 - Alteración del estado de conciencia.
 - SpO2 persistentemente baja, a pesar de la administración de oxígeno a alto flujo.
@@ -16,6 +21,8 @@ REMISIÓN
 	- 1 CRITERIO MAYOR O 3 MENORES
 	- ![CRITERIOS DE INGRESO UCI NEUMONIA.png](/img/user/%F0%9F%8D%80digital%20garden/-2.1%20JUSTIFICACIONES%20DE%20INGRESO/CRITERIOS%20DE%20INGRESO%20UCI%20NEUMONIA.png)
 	- PSI 5 O CURB 4
+- BRONQUIOLITIS
+	- Wood-Downes 4 PUNTOS
 SALIDA
 - No necesita broncodilatadores de acción corta a intervalos inferiores a 4 h
 - MEJORIA DE LA DISNEA

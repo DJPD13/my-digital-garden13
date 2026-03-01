@@ -88,8 +88,8 @@
     </label>
   </div>
 
-  <!-- header 5: AL MENOS 2 DE ESTOS -->
-  <div class="grupo" data-title="AL MENOS 2 DE ESTOS" data-slashes="0">
+  <!-- header 5:  -->
+  <div class="grupo" data-title="ASOCIADO A" data-slashes="0">
     <h5 class="titulo"></h5>
 
     <label>
