@@ -2,6 +2,7 @@
 {"dg-publish":true,"permalink":"/digital-garden/1-maternassss/lista-de-auxiliares/","dgPassFrontmatter":true}
 ---
 
+# AUX
 - HECTOR MENDOZA
 - PAOLA ROMERO
 - ALLISON ORTIZ
