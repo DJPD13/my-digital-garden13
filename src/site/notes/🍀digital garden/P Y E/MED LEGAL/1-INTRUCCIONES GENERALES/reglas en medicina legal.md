@@ -2,6 +2,9 @@
 {"dg-publish":true,"permalink":"/digital-garden/p-y-e/med-legal/1-intrucciones-generales/reglas-en-medicina-legal/","dgPassFrontmatter":true}
 ---
 
+- [[NO OLVIDAR.pdf]]
+
+
 
 - en consulta externa se atiende todo lo que es 
 	- lesiones personales
