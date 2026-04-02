@@ -26,8 +26,10 @@
 - 
 - FIEBRE SIN FOCO PED + REMISIÓN
 	- cualquiera con <21 días de edad
-	- 38 EN <3 MESES
-	- >39 >3 MESES Y <6 MESES
+	- FIEBRE 38 EN <3 MESES
+	- FIEBRE 39 >3 MESES Y <6 MESES
+	- DIARREA >7 DÍAS <2 MESES
+		- SI ES >2 MESES = CPRO PRIMERO
 	- Rash que no desaparece con digitopresión
 - DIARREA CON DESHIDRATACIÓN
 	- CON DESHIDRATACIÓN
@@ -49,11 +51,7 @@
 	- Conductas de riesgo o de daño autoinfligido en presencia de ideación suicida.
 	- Consumo concomitante de sustancias que ponen en riesgo la vida del paciente.
 	- Presencia de condiciones (estresores psicosociales) que a juicio del médico psiquiatra dificulten el tratamiento ambulatorio (por ejemplo: paciente sin red de apoyo o víctima de violencia intrafamiliar, abuso, negligencia u otros)
-- FIEBRE SIN FOCO PED + REMISIÓN
-	- >38 EN <3 MESES
-	- >39 >3 MESES Y <6 MESES
-	- Rash que no desaparece con digitopresión
-- 
+
 
 
 
