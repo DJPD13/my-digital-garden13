@@ -110,14 +110,19 @@
 	- PCR ≥ 2 mg/dl
 	- ApoB ≥ 130 mg/d
 - Relación albuminuria creatinuria en orina > 30 mg/g
-- condiciones específicas de la mujer
-	- sindrome de ovario poliquistico
-	- preeclampsia
-	- diabetes gestacional
-	- insuficiencia ovárica prematura
-	- menopausia precoz
 - diabetes sin factores de riesgo asociados y enfermedad de menos de diez años de duración
 - condiciones socioeconómicas adversas dada su importancia como determinante social de la salud
+- ### condiciones específicas de la mujer (otros factores potenciadores)
+	- **Menarquía** temprana (10 años o menos) o tardía (15 años o más).
+	- **Síndrome de ovario poliquístico (SOPQ).**
+	- **Trastornos hipertensivos asociados al embarazo:** Aumentan tres veces el riesgo de desarrollar hipertensión crónica. El riesgo de morir por cardiopatía isquémica después de preeclampsia es 2,5 veces mayor y 2-3 veces mayor por ACV.
+	- **Parto pretérmino:** Aumenta entre 1,4 y 2 veces el riesgo de presentar eventos cardiovasculares adversos, especialmente cuando el parto pretérmino es menor a 32 semanas o está asociado a RCIU o trastornos hipertensivos del embarazo.
+	- **Diabetes gestacional:** Duplica el riesgo de eventos cardiovasculares mayores en los años posteriores al parto y aumenta siete veces el riesgo de desarrollar diabetes tipo 2 en la primera década posparto.
+	- **Recién nacido con bajo peso al nacer** aumenta el riesgo hasta 3 veces de enfermedad cardiovascular.
+	- **Uso de anticonceptivos orales combinados:** Aumentan el riesgo de tromboembolismo venoso (TEV), infarto agudo de miocardio (IAM), ACV y elevación de la presión arterial.
+	- **Insuficiencia ovárica prematura (antes de los 40 años).**
+	- **Menopausia precoz** (antes de los 45 años) y **prematura** (antes de los 40 años), aumenta el riesgo cardiovascular en un 50 % en comparación con la menopausia natural.
+	- **Terapia de reemplazo hormonal**
 
 
 
@@ -168,6 +173,8 @@
 - [[guia dislipidemias esc 2025.pdf]]
 ## 5
 - [[DILIPIDEMIA AHA 2026.pdf]]
+# 6
+- [[14.-Riesgo-cardiovascular perlas clinicas.pdf]]
 
 
 

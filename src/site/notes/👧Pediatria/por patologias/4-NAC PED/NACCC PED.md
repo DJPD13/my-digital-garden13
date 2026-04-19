@@ -2,16 +2,12 @@
 {"dg-publish":true,"permalink":"/pediatria/por-patologias/4-nac-ped/naccc-ped/","dgPassFrontmatter":true}
 ---
 
-- [[nac ped socieda colombiana de pediatria 1.pdf]]
-	- 🅰️
-- [[NAC PEDIA SOCIEDAD COLOMBIANA DE PEDIATRIA 2.pdf]]
-	- 🅱️
 
 
 
 # VARIABLES
 - NO HAY CRITERIOS DIAGNOSTICO
-	- la taquipnea es le signo más sensible y especifico en niños menores 5 años🅰️
+	- la taquipnea es el signo más sensible y especifico en niños menores 5 años🅰️
 	- crepitos alveolares
 	- retracciones subcostales
 - DESCARTAR SINTOMAS y HALLAZGOS RX DE TORAX PARA ATIPICOS
@@ -36,3 +32,8 @@ CLARITROMICINA 15MG/KG/DÍA (SI SE SOPECHA ATIPICOS) POR 10 DÍAS
 
 # CRITERIOS DE ALTA
 - >24 HORAS CON SATURACIÓN DE OXIGENO>92%
+
+
+# biblio
+- [[nac ped socieda colombiana de pediatria 1.pdf]]
+- [[NAC PEDIA SOCIEDAD COLOMBIANA DE PEDIATRIA 2.pdf]]
