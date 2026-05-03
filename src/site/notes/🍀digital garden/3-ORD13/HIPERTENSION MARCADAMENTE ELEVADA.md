@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/hipertension-marcadamente-elevada/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/HIPERTENSION MARCADAMENTE ELEVADA/","dgPassFrontmatter":true,"updated":"2026-02-15T17:02:37.707-05:00","dg-note-properties":{}}
 ---
 
 OBSERVACIÓN 

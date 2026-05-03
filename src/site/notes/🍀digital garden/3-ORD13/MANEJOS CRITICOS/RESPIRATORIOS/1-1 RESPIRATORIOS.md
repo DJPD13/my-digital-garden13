@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/manejos-criticos/respiratorios/1-1-respiratorios/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/MANEJOS CRITICOS/RESPIRATORIOS/1-1 RESPIRATORIOS/","dgPassFrontmatter":true,"updated":"2026-02-28T18:05:04.447-05:00","dg-note-properties":{}}
 ---
 
 OBSERVACION

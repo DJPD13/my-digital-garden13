@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/maternas/notas-de-neonatos/nacido-vivo/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🤰Maternas/NOTAS DE NEONATOS/nacido vivo/","dgPassFrontmatter":true,"updated":"2026-03-11T00:01:41.382-05:00","dg-note-properties":{}}
 ---
 
 ADAPTACION

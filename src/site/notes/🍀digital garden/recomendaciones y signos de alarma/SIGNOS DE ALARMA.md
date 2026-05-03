@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/recomendaciones-y-signos-de-alarma/signos-de-alarma/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/recomendaciones y signos de alarma/SIGNOS DE ALARMA/","dgPassFrontmatter":true,"updated":"2026-04-15T21:16:20.837-05:00","dg-note-properties":{}}
 ---
 
 ```table-of-contents

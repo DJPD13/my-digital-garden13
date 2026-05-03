@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/examenes-fisicos/lactante/examen-fisico-lactante/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/-EXAMENES FISICOS/LACTANTE/EXAMEN FISICO LACTANTE/","dgPassFrontmatter":true,"updated":"2026-02-28T16:27:54.158-05:00","dg-note-properties":{}}
 ---
 
 EN BUENAS CONDICIONES GENERALES, CONSCIENTE, HIDRATADO, 

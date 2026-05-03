@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/j/j-ing-rem/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/j/J ING REM/","dgPassFrontmatter":true,"updated":"2026-03-30T00:58:16.626-05:00","dg-note-properties":{}}
 ---
 
 

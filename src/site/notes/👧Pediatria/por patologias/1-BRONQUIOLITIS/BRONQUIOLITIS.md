@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/pediatria/por-patologias/1-bronquiolitis/bronquiolitis/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/👧Pediatria/por patologias/1-BRONQUIOLITIS/BRONQUIOLITIS/","dgPassFrontmatter":true,"updated":"2026-04-18T20:58:21.477-05:00","dg-note-properties":{}}
 ---
 
 ```table-of-contents
@@ -32,9 +32,9 @@
 	- Prednisolona 1mg/kg VO dosis unica
 
 # tecnica
-![BRONQUIOLITIS1212.png|400](/img/user/%F0%9F%91%A7Pediatria/por%20patologias/1-BRONQUIOLITIS/BRONQUIOLITIS1212.png)
+![BRONQUIOLITIS1212.png\|400](/img/user/%F0%9F%91%A7Pediatria/por%20patologias/1-BRONQUIOLITIS/BRONQUIOLITIS1212.png)
 
-![WOOD DOWNES.png|600](/img/user/%F0%9F%91%A7Pediatria/por%20patologias/1-BRONQUIOLITIS/IMAGENES/WOOD%20DOWNES.png)
+![WOOD DOWNES.png\|600](/img/user/%F0%9F%91%A7Pediatria/por%20patologias/1-BRONQUIOLITIS/IMAGENES/WOOD%20DOWNES.png)
 
 
 

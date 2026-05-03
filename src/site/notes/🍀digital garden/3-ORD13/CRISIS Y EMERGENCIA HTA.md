@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/crisis-y-emergencia-hta/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/CRISIS Y EMERGENCIA HTA/","dgPassFrontmatter":true,"updated":"2026-02-10T20:01:26.091-05:00","dg-note-properties":{}}
 ---
 
 OBSERVACIÓN 

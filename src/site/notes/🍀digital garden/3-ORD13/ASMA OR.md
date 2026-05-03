@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/asma-or/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/ASMA OR/","dgPassFrontmatter":true,"updated":"2026-02-15T17:02:46.699-05:00","dg-note-properties":{}}
 ---
 
 CRISIS ASMATICA

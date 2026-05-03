@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/procedimientosss/ferula/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🪡PROCEDIMIENTOSSS/Ferula/","dgPassFrontmatter":true,"updated":"2026-04-18T21:07:12.003-05:00","dg-note-properties":{}}
 ---
 
 # ORDEN DE ENTRADA

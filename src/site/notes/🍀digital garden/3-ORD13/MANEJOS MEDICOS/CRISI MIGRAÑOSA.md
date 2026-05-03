@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/manejos-medicos/crisi-migranosa/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/MANEJOS MEDICOS/CRISI MIGRAÑOSA/","dgPassFrontmatter":true,"updated":"2026-02-28T18:13:23.909-05:00","dg-note-properties":{}}
 ---
 
 -OBSERVACIÓN URGENCIAS

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/examenes-fisicos/ninoz/examen-fisico-ninoz/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/-EXAMENES FISICOS/NIÑOZ/EXAMEN FISICO NIÑOZ/","dgPassFrontmatter":true,"updated":"2026-02-28T16:34:33.908-05:00","dg-note-properties":{}}
 ---
 
 EN BUENAS CONDICIONES GENERALES, CONSCIENTE, HIDRATADO, SIN LESIONES EN PIEL, AFEBRIL

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/dengueeee/dengue-mnemotecnias/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🦟DENGUEEEE/dengue mnemotecnias/","dgPassFrontmatter":true,"updated":"2026-03-10T02:04:01.322-05:00","dg-note-properties":{}}
 ---
 
 ![dengue mnemotecniashh.png](/img/user/%F0%9F%A6%9FDENGUEEEE/dengue%20imagenes/dengue%20mnemotecniashh.png)

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/trasladoss/primario/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/TRASLADOSS/PRIMARIO/","dgPassFrontmatter":true,"updated":"2026-03-11T00:09:43.161-05:00","dg-note-properties":{}}
 ---
 
 INGRESA TRIPULACION  MEDICALIZADA PARA REALIZAR TRASLADO DE PACIENTE A CENTRO DE MAYOR COMPLEJIDAD, DR XXX,  AUX XX, CONDUCTOR. XX AMBULANCIA NNZXXX, SE ENTREGA PACIENTE A LA TRIPULACIÓN SIN ACCESO VENOSO,  

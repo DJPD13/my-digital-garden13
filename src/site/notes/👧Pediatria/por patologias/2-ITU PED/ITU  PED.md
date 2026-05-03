@@ -1,10 +1,10 @@
 ---
-{"dg-publish":true,"permalink":"/pediatria/por-patologias/2-itu-ped/itu-ped/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/👧Pediatria/por patologias/2-ITU PED/ITU  PED/","dgPassFrontmatter":true,"updated":"2026-03-10T23:13:40.668-05:00","dg-note-properties":{}}
 ---
 
-- [[ITU.pdf]]
+- [ITU.pdf](/img/user/%F0%9F%91%A7Pediatria/por%20patologias/2-ITU%20PED/PDFS%20ITU%20PED/ITU.pdf)
 	- 🅰️
-- [[fiebre sin foco 1.pdf]]
+- [fiebre sin foco 1.pdf](/img/user/%F0%9F%91%A7Pediatria/por%20patologias/2-ITU%20PED/PDFS%20ITU%20PED/fiebre%20sin%20foco%201.pdf)
 	- 🅱️
 - Curso PAHOS Dengue
 	- 3️⃣

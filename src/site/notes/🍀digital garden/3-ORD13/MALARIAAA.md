@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/malariaaa/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/MALARIAAA/","dgPassFrontmatter":true,"updated":"2026-02-10T20:35:38.027-05:00","dg-note-properties":{}}
 ---
 
 ESQUEMA ANTIMALÁRICO:

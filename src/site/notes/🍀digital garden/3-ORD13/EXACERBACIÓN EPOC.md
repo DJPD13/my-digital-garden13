@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/exacerbacion-epoc/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/EXACERBACIÓN EPOC/","dgPassFrontmatter":true,"updated":"2026-02-25T14:25:07.294-05:00","dg-note-properties":{}}
 ---
 
 OBSERVACIÓN

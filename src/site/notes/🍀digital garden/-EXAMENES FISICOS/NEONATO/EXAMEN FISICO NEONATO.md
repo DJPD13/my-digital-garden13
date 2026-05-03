@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/examenes-fisicos/neonato/examen-fisico-neonato/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/-EXAMENES FISICOS/NEONATO/EXAMEN FISICO NEONATO/","dgPassFrontmatter":true,"updated":"2026-02-28T16:35:29.443-05:00","dg-note-properties":{}}
 ---
 
 SIGNOS VITALES: FC 136X" FR 40X" T°36°C SPO2 95%. 

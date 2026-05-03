@@ -1,5 +1,5 @@
 ---
-{"Completa":null,"Falta algo":null,"Bibliografia":"https://www.orthobullets.com/trauma/1030/pelvic-ring-fractures","titlepic":null,"dg-publish":true,"permalink":"/urgencias/fractura-de-pelvis/criterios-de-inestabilidad/","dgPassFrontmatter":true}
+{"Completa":null,"Falta algo":null,"Bibliografia":"https://www.orthobullets.com/trauma/1030/pelvic-ring-fractures","titlepic":null,"dg-publish":true,"permalink":"/🚨URGENCIAS/Fractura de Pelvis/Criterios de Inestabilidad/","dgPassFrontmatter":true,"updated":"2026-04-18T21:02:24.560-05:00","dg-note-properties":{"Completa":null,"Falta algo":null,"Bibliografia":"https://www.orthobullets.com/trauma/1030/pelvic-ring-fractures","titlepic":null}}
 ---
 
 

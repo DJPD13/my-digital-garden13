@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/pediatria/0-a-3-a-5/enfermedad-actual-0-a-3-y-3-a-5/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/👧Pediatria/0 a 3 a 5/ENFERMEDAD ACTUAL  0 A 3 y 3 a 5/","dgPassFrontmatter":true,"updated":"2026-04-10T00:22:21.019-05:00","dg-note-properties":{}}
 ---
 
 

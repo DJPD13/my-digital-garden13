@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/calculos/calc-online/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/CALCULOS/calc online/","dgPassFrontmatter":true,"updated":"2026-03-15T23:11:28.645-05:00","dg-note-properties":{}}
 ---
 
 

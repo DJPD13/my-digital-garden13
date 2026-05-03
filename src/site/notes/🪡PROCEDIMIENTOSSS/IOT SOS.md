@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/procedimientosss/iot-sos/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🪡PROCEDIMIENTOSSS/IOT SOS/","dgPassFrontmatter":true,"updated":"2026-02-14T18:26:04.032-05:00","dg-note-properties":{}}
 ---
 
 INTUBACIÓN ENDOTRAQUEAL

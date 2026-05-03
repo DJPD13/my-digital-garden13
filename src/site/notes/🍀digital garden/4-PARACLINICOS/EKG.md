@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/4-paraclinicos/ekg/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/4-PARACLINICOS/EKG/","dgPassFrontmatter":true,"updated":"2026-02-15T16:12:22.635-05:00","dg-note-properties":{}}
 ---
 
 

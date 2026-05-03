@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/examenes-fisicos/adulto/examen-fisico-adulto/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/-EXAMENES FISICOS/ADULTO/EXAMEN FISICO ADULTO/","dgPassFrontmatter":true,"updated":"2026-02-28T16:27:40.515-05:00","dg-note-properties":{}}
 ---
 
 PACIENTE EN BUENAS CONDICIONES GENERALES, ALERTA, CONCIENTE, AFEBRIL, HIDRATADO

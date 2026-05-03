@@ -1,149 +1,212 @@
 ---
-{"dg-publish":true,"permalink":"/consultaaa/enf-cardiovascular/calculo-riesgo-cardiovascular/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🩺CONSULTAAA/Enf. Cardiovascular/calculo riesgo cardiovascular/","dgPassFrontmatter":true,"updated":"2026-04-22T20:46:50.913-05:00","dg-note-properties":{}}
 ---
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>eGFR CKD-EPI 2021</title>
   <style>
+    *{
+      box-sizing:border-box;
+    }
+
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#0f172a;
       color:white;
-      padding:20px;
-      max-width:800px;
-      margin:auto;
+      margin:0;
+      padding:24px;
     }
+
+    .container{
+      width:min(1100px, 100%);
+      margin:0 auto;
+    }
+
+    .grid{
+      display:grid;
+      gap:18px;
+    }
+
     .card{
       background:#111827;
-      padding:20px;
+      padding:24px;
       border-radius:12px;
-      margin-bottom:15px;
+      width:100%;
+      box-shadow:0 8px 24px rgba(0,0,0,0.25);
     }
+
+    h2,h3{
+      margin-top:0;
+      margin-bottom:16px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:bold;
+    }
+
     input,select{
       width:100%;
-      padding:10px;
+      padding:12px;
       margin-top:5px;
-      margin-bottom:10px;
+      margin-bottom:14px;
       border-radius:8px;
       border:1px solid #334155;
       background:#1f2937;
       color:white;
+      font-size:16px;
     }
+
     button{
       background:#22c55e;
       border:none;
-      padding:12px;
+      padding:14px;
       border-radius:10px;
       font-weight:bold;
       cursor:pointer;
       width:100%;
+      font-size:16px;
     }
+
+    button:hover{
+      filter:brightness(1.05);
+    }
+
     .result{
-      font-size:32px;
+      font-size:clamp(28px, 4vw, 42px);
       font-weight:bold;
       color:#22c55e;
+      margin-bottom:10px;
+      word-break:break-word;
     }
+
+    #stage{
+      font-size:20px;
+    }
+
     pre{
-      background:black;
-      padding:10px;
+      background:#000;
+      padding:14px;
       border-radius:10px;
+      white-space:pre-wrap;
+      word-break:break-word;
+      overflow-x:auto;
+      font-size:15px;
+      line-height:1.5;
+      margin:0;
+    }
+
+    @media (min-width: 900px){
+      .grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .full{
+        grid-column:1 / -1;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="card">
-  <h2>eGFR CKD-EPI 2021 (Creatinina)</h2>
+  <div class="container">
+    <div class="grid">
+      <div class="card">
+        <h2>eGFR CKD-EPI 2021 (Creatinina)</h2>
 
-  <label>Edad</label>
-  <input id="age" type="number" value="55">
+        <label for="age">Edad</label>
+        <input id="age" type="number" value="55">
 
-  <label>Sexo</label>
-  <select id="sex">
-    <option value="male">Masculino</option>
-    <option value="female">Femenino</option>
-  </select>
+        <label for="sex">Sexo</label>
+        <select id="sex">
+          <option value="male">Masculino</option>
+          <option value="female">Femenino</option>
+        </select>
 
-  <label>Creatinina</label>
-  <input id="scr" type="number" value="1.1" step="0.01">
+        <label for="scr">Creatinina</label>
+        <input id="scr" type="number" value="1.1" step="0.01">
 
-  <label>Unidad</label>
-  <select id="unit">
-    <option value="mg">mg/dL</option>
-    <option value="umol">µmol/L</option>
-  </select>
+        <label for="unit">Unidad</label>
+        <select id="unit">
+          <option value="mg">mg/dL</option>
+          <option value="umol">µmol/L</option>
+        </select>
 
-  <button onclick="calc()">Calcular</button>
-</div>
+        <button onclick="calc()">Calcular</button>
+      </div>
 
-<div class="card">
-  <div class="result" id="result">—</div>
-  <div id="stage"></div>
-</div>
+      <div class="card">
+        <div class="result" id="result">—</div>
+        <div id="stage"></div>
+      </div>
 
-<div class="card">
-  <h3>Resumen</h3>
-  <pre id="summary"></pre>
-</div>
+      <div class="card full">
+        <h3>Resumen</h3>
+        <pre id="summary"></pre>
+      </div>
+    </div>
+  </div>
 
-<script>
-function convertScr(value, unit){
-  if(unit === "umol") return value / 88.4;
-  return value;
-}
+  <script>
+    function convertScr(value, unit){
+      if(unit === "umol") return value / 88.4;
+      return value;
+    }
 
-// CKD-EPI 2021 creatinina
-function egfr(age, sex, scr){
-  const k = sex === "female" ? 0.7 : 0.9;
-  const a = sex === "female" ? -0.241 : -0.302;
-  const femaleFactor = sex === "female" ? 1.012 : 1;
+    // CKD-EPI 2021 creatinina
+    function egfr(age, sex, scr){
+      const k = sex === "female" ? 0.7 : 0.9;
+      const a = sex === "female" ? -0.241 : -0.302;
+      const femaleFactor = sex === "female" ? 1.012 : 1;
 
-  const ratio = scr / k;
+      const ratio = scr / k;
 
-  return 142 *
-    Math.pow(Math.min(ratio,1), a) *
-    Math.pow(Math.max(ratio,1), -1.200) *
-    Math.pow(0.9938, age) *
-    femaleFactor;
-}
+      return 142 *
+        Math.pow(Math.min(ratio,1), a) *
+        Math.pow(Math.max(ratio,1), -1.200) *
+        Math.pow(0.9938, age) *
+        femaleFactor;
+    }
 
-function stage(gfr){
-  if(gfr >= 90) return "G1";
-  if(gfr >= 60) return "G2";
-  if(gfr >= 45) return "G3a";
-  if(gfr >= 30) return "G3b";
-  if(gfr >= 15) return "G4";
-  return "G5";
-}
+    function stage(gfr){
+      if(gfr >= 90) return "G1";
+      if(gfr >= 60) return "G2";
+      if(gfr >= 45) return "G3a";
+      if(gfr >= 30) return "G3b";
+      if(gfr >= 15) return "G4";
+      return "G5";
+    }
 
-function calc(){
-  const age = Number(document.getElementById("age").value);
-  const sex = document.getElementById("sex").value;
-  const scrInput = Number(document.getElementById("scr").value);
-  const unit = document.getElementById("unit").value;
+    function calc(){
+      const age = Number(document.getElementById("age").value);
+      const sex = document.getElementById("sex").value;
+      const scrInput = Number(document.getElementById("scr").value);
+      const unit = document.getElementById("unit").value;
 
-  if(age < 18){
-    alert("Edad debe ser ≥18");
-    return;
-  }
+      if(age < 18){
+        alert("Edad debe ser ≥18");
+        return;
+      }
 
-  const scr = convertScr(scrInput, unit);
-  const gfr = egfr(age, sex, scr);
-  const gfrMs = gfr * 0.0167;
-  const st = stage(gfr);
+      const scr = convertScr(scrInput, unit);
+      const gfr = egfr(age, sex, scr);
+      const gfrMs = gfr * 0.0167;
+      const st = stage(gfr);
 
-  document.getElementById("result").innerText =
-    gfr.toFixed(1) + " mL/min/1.73m²";
+      document.getElementById("result").innerText =
+        gfr.toFixed(1) + " mL/min/1.73m²";
 
-  document.getElementById("stage").innerText =
-    "Estadio: " + st;
+      document.getElementById("stage").innerText =
+        "Estadio: " + st;
 
-  document.getElementById("summary").innerText =
+      document.getElementById("summary").innerText =
 `Edad: ${age}
-Sexo: ${sex}
+Sexo: ${sex === "male" ? "Masculino" : "Femenino"}
 Creatinina: ${scrInput} ${unit === "mg" ? "mg/dL" : "µmol/L"}
 Creatinina convertida: ${scr.toFixed(3)} mg/dL
 
@@ -151,8 +214,10 @@ Creatinina convertida: ${scr.toFixed(3)} mg/dL
 eGFR: ${gfr.toFixed(1)} mL/min/1.73m²
 eGFR: ${gfrMs.toFixed(2)} mL/s/1.73m²
 Estadio: ${st}`;
-}
-</script>
+    }
+
+    calc();
+  </script>
 
 </body>
 </html>
@@ -177,98 +242,211 @@ Estadio: ${st}`;
       --warn:#f59e0b;
       --err:#ef4444;
     }
-    *{box-sizing:border-box}
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html,body{
+      width:100%;
+      min-height:100%;
+    }
+
     body{
       margin:0;
       font-family:Arial, Helvetica, sans-serif;
       background:linear-gradient(180deg,#020617,#0f172a);
       color:var(--text);
-      padding:24px;
+      padding:28px;
     }
-    .container{max-width:1150px;margin:0 auto}
+
+    .container{
+      width:min(1600px, 100%);
+      margin:0 auto;
+    }
+
     .card{
       background:rgba(17,24,39,.96);
       border:1px solid var(--line);
       border-radius:16px;
-      padding:20px;
-      margin-bottom:18px;
+      padding:24px;
+      margin-bottom:20px;
     }
-    h1,h2{margin:0 0 12px}
-    p{color:var(--muted);line-height:1.5}
+
+    h1,h2{
+      margin:0 0 12px;
+    }
+
+    p{
+      color:var(--muted);
+      line-height:1.6;
+      margin:0;
+    }
+
     .grid{
       display:grid;
-      grid-template-columns:repeat(12,1fr);
-      gap:14px;
+      grid-template-columns:repeat(12, minmax(0,1fr));
+      gap:16px;
+      align-items:start;
     }
-    .field{grid-column:span 4}
-    .field.full{grid-column:1 / -1}
-    @media(max-width:900px){ .field{grid-column:span 12} }
+
+    .field{
+      grid-column:span 3;
+      min-width:0;
+    }
+
+    .field.full{
+      grid-column:1 / -1;
+    }
+
+    @media(max-width:1200px){
+      .field{
+        grid-column:span 4;
+      }
+    }
+
+    @media(max-width:900px){
+      .field{
+        grid-column:span 6;
+      }
+    }
+
+    @media(max-width:640px){
+      body{
+        padding:16px;
+      }
+
+      .card{
+        padding:18px;
+      }
+
+      .field{
+        grid-column:span 12;
+      }
+    }
+
     label{
       display:block;
       margin-bottom:6px;
       font-size:14px;
       font-weight:700;
     }
+
     input,select{
       width:100%;
-      padding:11px 12px;
+      padding:12px 14px;
       border-radius:10px;
       border:1px solid var(--line);
       background:var(--panel2);
       color:var(--text);
       font-size:15px;
+      min-height:46px;
     }
+
     .actions{
       display:flex;
       gap:12px;
       flex-wrap:wrap;
-      margin-top:14px;
+      margin-top:18px;
     }
+
     button{
       border:none;
       border-radius:12px;
-      padding:12px 18px;
+      padding:13px 18px;
       font-weight:700;
       cursor:pointer;
+      font-size:15px;
     }
-    .primary{background:var(--ok);color:#052e16}
-    .secondary{background:#334155;color:#f8fafc}
-    .status{font-size:14px;color:var(--muted);margin-bottom:8px}
+
+    .primary{
+      background:var(--ok);
+      color:#052e16;
+    }
+
+    .secondary{
+      background:#334155;
+      color:#f8fafc;
+    }
+
+    .status{
+      font-size:14px;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+
     .result{
-      font-size:40px;
+      font-size:clamp(34px, 4vw, 52px);
       font-weight:800;
       color:var(--ok);
       margin:8px 0;
+      word-break:break-word;
     }
-    .sub{font-size:14px;color:var(--muted)}
+
+    .sub{
+      font-size:15px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+
     .results-grid{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-      margin-top:16px;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:16px;
+      margin-top:18px;
     }
+
     .mini{
       background:#0b1220;
       border:1px solid var(--line);
       border-radius:12px;
-      padding:14px;
+      padding:16px;
+      min-width:0;
     }
-    .mini .k{font-size:13px;color:var(--muted)}
-    .mini .v{font-size:28px;font-weight:800;margin-top:4px}
-    @media(max-width:900px){ .results-grid{grid-template-columns:1fr} }
+
+    .mini .k{
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.4;
+    }
+
+    .mini .v{
+      font-size:30px;
+      font-weight:800;
+      margin-top:6px;
+      word-break:break-word;
+    }
+
+    @media(max-width:1000px){
+      .results-grid{
+        grid-template-columns:repeat(2, minmax(0,1fr));
+      }
+    }
+
+    @media(max-width:640px){
+      .results-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
     pre{
       background:#020617;
       border:1px solid var(--line);
       border-radius:12px;
-      padding:14px;
+      padding:16px;
       color:#dbeafe;
       white-space:pre-wrap;
       word-break:break-word;
-      overflow:auto;
+      overflow-x:auto;
+      line-height:1.55;
+      margin:0;
+      width:100%;
     }
+
     .ok{color:#86efac}
     .warn{color:#fbbf24}
     .err{color:#fca5a5}
+
     .note{
       font-size:13px;
       color:#cbd5e1;
@@ -277,6 +455,7 @@ Estadio: ${st}`;
       border-radius:12px;
       padding:12px;
       margin-top:12px;
+      line-height:1.5;
     }
   </style>
 </head>
@@ -661,7 +840,9 @@ Estadio: ${st}`;
     $("btnEjemplo").addEventListener("click", setExample);
 
     setExample();
+    calculate();
   </script>
 </body>
 </html>
+
 

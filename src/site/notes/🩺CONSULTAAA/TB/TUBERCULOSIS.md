@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/consultaaa/tb/tuberculosis/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🩺CONSULTAAA/TB/TUBERCULOSIS/","dgPassFrontmatter":true,"updated":"2026-04-01T16:33:36.840-05:00","dg-note-properties":{}}
 ---
 
 ```table-of-contents

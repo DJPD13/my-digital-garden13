@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/pediatria/1-herramientas-ped/signos-vitales/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/👧Pediatria/1-Herramientas ped/SIGNOS VITALES/","dgPassFrontmatter":true,"updated":"2026-03-10T23:13:28.681-05:00","dg-note-properties":{}}
 ---
 
 ```table-of-contents

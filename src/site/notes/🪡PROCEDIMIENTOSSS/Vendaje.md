@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/procedimientosss/vendaje/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🪡PROCEDIMIENTOSSS/Vendaje/","dgPassFrontmatter":true,"updated":"2026-04-18T21:09:41.105-05:00","dg-note-properties":{}}
 ---
 
 SE REALIZA INMOVILIZACION CON VENDAJE BULTOSO DE ALGODON *** X5" DESDE TERCIO MEDIO DE MUSLO HASTA REGION MALEOLAR SE CUBRE CON VENDAJE ELASTICO DE 6X5". PROCEDIMIENTO SIN COMPLICACIONES

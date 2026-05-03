@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/4-general/ingreso/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/-4General/ingreso/","dgPassFrontmatter":true,"updated":"2026-04-09T19:01:21.741-05:00","dg-note-properties":{}}
 ---
 
 

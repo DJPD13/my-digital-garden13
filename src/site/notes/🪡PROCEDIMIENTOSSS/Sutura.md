@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/procedimientosss/sutura/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🪡PROCEDIMIENTOSSS/Sutura/","dgPassFrontmatter":true,"updated":"2026-02-14T18:26:07.243-05:00","dg-note-properties":{}}
 ---
 
 # ORDEN DE ENTRADA

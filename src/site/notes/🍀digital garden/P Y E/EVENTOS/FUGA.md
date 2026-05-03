@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/p-y-e/eventos/fuga/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/P Y E/EVENTOS/FUGA/","dgPassFrontmatter":true,"updated":"2026-02-14T14:43:36.839-05:00","dg-note-properties":{}}
 ---
 
 # MENOR DE EDAD

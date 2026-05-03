@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/pediatria/1-herramientas-ped/escalas/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/👧Pediatria/1-Herramientas ped/ESCALAS/","dgPassFrontmatter":true,"updated":"2026-03-30T00:03:48.185-05:00","dg-note-properties":{}}
 ---
 
 

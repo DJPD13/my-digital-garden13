@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/manejos-trauma/heridos-por-proyectil-de-arma-de-fuego/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/MANEJOS TRAUMA/HERIDOS POR PROYECTIL DE ARMA DE FUEGO/","dgPassFrontmatter":true,"updated":"2026-02-10T20:01:34.402-05:00","dg-note-properties":{}}
 ---
 
 # EXTREMIDADES

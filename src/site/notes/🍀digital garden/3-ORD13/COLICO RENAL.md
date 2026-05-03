@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/colico-renal/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/COLICO RENAL/","dgPassFrontmatter":true,"updated":"2026-02-25T14:08:48.910-05:00","dg-note-properties":{}}
 ---
 
 OBSERVACIÓN

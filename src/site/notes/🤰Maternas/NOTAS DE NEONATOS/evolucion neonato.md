@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/maternas/notas-de-neonatos/evolucion-neonato/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🤰Maternas/NOTAS DE NEONATOS/evolucion neonato/","dgPassFrontmatter":true,"updated":"2026-03-11T00:01:38.356-05:00","dg-note-properties":{}}
 ---
 
 EVO POSTPARTO

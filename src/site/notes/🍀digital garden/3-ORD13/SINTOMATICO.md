@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/sintomatico/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/SINTOMATICO/","dgPassFrontmatter":true,"updated":"2026-02-10T20:02:06.410-05:00","dg-note-properties":{}}
 ---
 
 DOLOR

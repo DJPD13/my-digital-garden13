@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/manejos-criticos/respiratorios/1-esquema-de-rescate/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/MANEJOS CRITICOS/RESPIRATORIOS/1-ESQUEMA DE RESCATE/","dgPassFrontmatter":true,"updated":"2026-02-25T18:38:37.905-05:00","dg-note-properties":{}}
 ---
 
 - 4 PUFFS CADA 20 MINUTOS POR 1 HORA, LUEGO 4 PUFFS CADA HORA POR 30 MINUTOS POR 2 HORAS, LUEGO 4 PUFFS CADA 60 MINUTOS POR 4 HORAS

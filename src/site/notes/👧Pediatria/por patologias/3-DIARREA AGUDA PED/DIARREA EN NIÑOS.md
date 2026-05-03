@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/pediatria/por-patologias/3-diarrea-aguda-ped/diarrea-en-ninos/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/👧Pediatria/por patologias/3-DIARREA AGUDA PED/DIARREA EN NIÑOS/","dgPassFrontmatter":true,"updated":"2026-03-30T00:41:38.564-05:00","dg-note-properties":{}}
 ---
 
 

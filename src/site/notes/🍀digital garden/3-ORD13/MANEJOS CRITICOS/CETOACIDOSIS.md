@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/manejos-criticos/cetoacidosis/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/MANEJOS CRITICOS/CETOACIDOSIS/","dgPassFrontmatter":true,"updated":"2026-04-10T01:44:24.401-05:00","dg-note-properties":{}}
 ---
 
 OBSERVACION 

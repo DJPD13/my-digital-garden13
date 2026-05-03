@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/pediatria/dosis-pediatrica/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/👧Pediatria/Dosis Pediatrica/","dgPassFrontmatter":true,"updated":"2026-02-15T16:07:35.063-05:00","dg-note-properties":{}}
 ---
 
 <!doctype html>

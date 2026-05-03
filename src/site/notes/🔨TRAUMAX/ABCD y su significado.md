@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/traumax/abcd-y-su-significado/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🔨TRAUMAX/ABCD y su significado/","dgPassFrontmatter":true,"updated":"2026-04-18T21:01:36.462-05:00","dg-note-properties":{}}
 ---
 
 - Evalue

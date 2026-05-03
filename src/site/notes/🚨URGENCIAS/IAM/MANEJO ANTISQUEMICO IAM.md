@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/urgencias/iam/manejo-antisquemico-iam/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🚨URGENCIAS/IAM/MANEJO ANTISQUEMICO IAM/","dgPassFrontmatter":true,"updated":"2026-04-15T20:38:03.603-05:00","dg-note-properties":{}}
 ---
 
 GRACE>140
@@ -30,18 +30,18 @@ Los pacientes que cumplan uno de los siguientes criterios se deberá formular un
 - Infección por H. Pylori. 
 - Consumo crónico de alcohol.
 # INDICACIÓN NITROGLICERINA
-![NITRO IAM.png|400](/img/user/%F0%9F%9A%A8URGENCIAS/IAM/IMAGENES/NITRO%20IAM.png)
+![NITRO IAM.png\|400](/img/user/%F0%9F%9A%A8URGENCIAS/IAM/IMAGENES/NITRO%20IAM.png)
 
 # MORFINA
-![MORFINA IAM.png|400](/img/user/%F0%9F%9A%A8URGENCIAS/IAM/IMAGENES/MORFINA%20IAM.png)
+![MORFINA IAM.png\|400](/img/user/%F0%9F%9A%A8URGENCIAS/IAM/IMAGENES/MORFINA%20IAM.png)
 # IMAGEN
 ![MEDICAMENTOS IAM.png](/img/user/%F0%9F%9A%A8URGENCIAS/IAM/IMAGENES/MEDICAMENTOS%20IAM.png)
 
 
 # STEMI
-![6 EQUIVALENTE DE STEMI.png](/img/user/%F0%9F%9A%A8URGENCIAS/IAM/6%20EQUIVALENTE%20DE%20STEMI.png)
+![6 EQUIVALENTE DE STEMI.png](/img/user/%F0%9F%9A%A8URGENCIAS/IAM/IMAGENES/6%20EQUIVALENTE%20DE%20STEMI.png)
 
 
 BIBLIOGRAFIA
--[[manejo farmacológico del síndrome coronario agudo.pdf]]
+-[manejo farmacológico del síndrome coronario agudo.pdf](/img/user/%F0%9F%9A%A8URGENCIAS/IAM/PDFS/manejo%20farmacol%C3%B3gico%20del%20s%C3%ADndrome%20coronario%20agudo.pdf)
 -PONER LA GUIA AHA 2025

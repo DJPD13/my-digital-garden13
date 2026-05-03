@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/3-ord-13/manejos-criticos/convulsion/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/3-ORD13/MANEJOS CRITICOS/CONVULSIÓN/","dgPassFrontmatter":true,"updated":"2026-02-28T18:14:32.545-05:00","dg-note-properties":{}}
 ---
 
 OBSERVACION PEDIATRIA

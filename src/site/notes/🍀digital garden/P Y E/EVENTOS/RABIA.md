@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/p-y-e/eventos/rabia/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/P Y E/EVENTOS/RABIA/","dgPassFrontmatter":true,"updated":"2026-03-10T02:28:17.740-05:00","dg-note-properties":{}}
 ---
 
 

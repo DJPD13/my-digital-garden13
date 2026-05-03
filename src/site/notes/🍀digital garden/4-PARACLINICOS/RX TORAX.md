@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/digital-garden/4-paraclinicos/rx-torax/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/🍀digital garden/4-PARACLINICOS/RX TORAX/","dgPassFrontmatter":true,"updated":"2026-03-10T02:28:43.863-05:00","dg-note-properties":{}}
 ---
 
 PLACA DE TÓRAX BIEN INSPIRADA,NO ROTADA, BIEN PENETRADA, SILUETA CARDIACA DE TAMAÑO NORMAL, SIN CARDIOMEGALIA, TRÁQUEA CENTRAL,AMBOS HEMITORAX PULMONARES CON XXXXX, CON EVIDENCIA DEXXXX  , SIN DERRAME PLEURAL, SIN APLANAMIENTO DE LOS HEMIDIAFRAGMAS, SIN CONSOLIDACIONES. EN PROYECCIÓN LATERAL SE EVIDENCIA  XXXX
